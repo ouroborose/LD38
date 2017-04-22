@@ -151,9 +151,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_model: {fileID: 4298238008768544}
-  m_rotationTime: 0.25
-  m_jumpHeight: 0.5
-  m_jumpTime: 0.25
-  m_baseHP: 0
-  m_currentHP: 0
-  m_baseAttack: 0
+  m_baseHP: 5
+  m_baseAttack: 1

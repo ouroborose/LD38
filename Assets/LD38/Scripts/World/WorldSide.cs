@@ -28,6 +28,9 @@ public class WorldSide : BaseObject, IClickable {
         m_world = world;
         m_showingTile = m_topTile;
 
+        m_topTile.Init(this);
+        m_bottomTile.Init(this);
+
         m_topTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
         m_bottomTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
 
@@ -56,10 +59,12 @@ public class WorldSide : BaseObject, IClickable {
 
     protected void DetermineAction()
     {
+        BasePlayer player = Main.Instance.Player;
         BaseEnemy enemy = m_showingTile.m_obj as BaseEnemy;
         if (enemy != null)
         {
             // attack
+            player.Attack(enemy);
             return;
         }
 
