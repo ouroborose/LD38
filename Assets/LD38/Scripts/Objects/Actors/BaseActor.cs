@@ -16,10 +16,10 @@ public class BaseActor : BaseObject
     protected const float JUMP_HEIGHT = 0.5f;
     protected const float JUMP_TIME = 0.25f;
 
-    public int m_baseHP;
+    [SerializeField] protected int m_baseHP = 1;
     public int m_currentHP { get; protected set; }
 
-    public int m_baseAttack;
+    [SerializeField] protected int m_baseAttack = 1;
 
     protected override void Awake()
     {

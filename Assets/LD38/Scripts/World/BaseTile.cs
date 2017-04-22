@@ -3,28 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTile : BaseObject {
-    public bool m_isEmpty { get { return m_obj == null; } }
-
-    public BaseObject m_obj { get; protected set; }
+    public bool m_isEmpty { get { return m_objs.Count > 0; } }
+    
+    public List<BaseObject> m_objs { get; protected set; }
     public WorldSide m_side { get; protected set; }
 
     public void Init(WorldSide side)
     {
         m_side = side;
+        m_objs = new List<BaseObject>();
     }
     
-    public void SetObject(BaseObject obj)
+    public bool Contains(BaseObject obj)
     {
-        m_obj = obj;
-    }
-
-    public void DestroyObj()
-    {
-        if(m_obj != null)
+        for(int i = 0; i < m_objs.Count; ++i)
         {
-            Destroy(m_obj.gameObject);
+            if(m_objs[i] == obj)
+            {
+                return true;
+            }
         }
 
-        m_obj = null;
+        return false;
+    }
+
+    public void AddObject(BaseObject obj)
+    {
+        m_objs.Add(obj);
+    }
+
+    public void RemoveObject(BaseObject obj)
+    {
+        m_objs.Remove(obj);
+    }
+
+    public void DestroyAllObjects()
+    {
+        for(int i = 0; i < m_objs.Count; ++i)
+        {
+            Destroy(m_objs[i].gameObject);
+        }
+        m_objs.Clear();
     }
 }

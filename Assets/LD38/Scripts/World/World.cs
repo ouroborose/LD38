@@ -69,8 +69,7 @@ public class World : MonoBehaviour {
             }
             
             // TODO: update tile model using biome data
-
-            BiomeData.TileType tileType = data.m_tiles[tileIndex];
+            
             switch (data.m_tiles[tileIndex])
             {
                 case BiomeData.TileType.Enemy:

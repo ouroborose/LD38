@@ -21,17 +21,21 @@ public class BasePlayer : BaseActor
 
     public override void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))
     {
-        BaseItem item = tile.m_obj as BaseItem;
-        if(item != null)
+        for(int i = 0; i < tile.m_objs.Count; ++i)
         {
-            // pick up item
-        }
+            BaseObject obj = tile.m_objs[i];
+            BaseItem item = obj as BaseItem;
+            if (item != null)
+            {
+                // pick up item
+            }
 
-        BaseTrap trap = tile.m_obj as BaseTrap;
-        if(trap != null)
-        {
-            // hit trap
-
+            BaseTrap trap = obj as BaseTrap;
+            if (trap != null)
+            {
+                // hit trap
+                trap.Activate(this);
+            }
         }
 
         base.SetTile(tile, rotateToTile, localRotation);
