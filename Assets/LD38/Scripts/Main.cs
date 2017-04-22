@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Main : Singleton<Main> {
 
@@ -24,11 +25,43 @@ public class Main : Singleton<Main> {
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
+    protected void Start()
+    {
+        m_player.SetTile(m_world.Sides[0].m_hiddenTile);
+        Sequence startSequence = DOTween.Sequence();
+        for (int i = 0; i < m_world.Sides.Length; ++i)
+        {
+            startSequence.AppendCallback(m_world.Sides[i].Flip);
+            startSequence.AppendInterval(WorldSide.FLIP_MOVE_TIME);
+        }
+    }
+
     protected void Update()
     {
+        UpdateDebugControls();
         UpdatePlayerControls();
     }
     
+    protected void UpdateDebugControls()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            m_world.FlipAllEmptyTiles();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+            {
+                WorldSide side = hit.collider.GetComponentInParent<WorldSide>();
+                if (side != null)
+                {
+                    side.Flip();
+                }
+            }
+        }
+    }
 
     protected void UpdatePlayerControls()
     {
@@ -80,30 +113,15 @@ public class Main : Singleton<Main> {
                 }
             }
         }
-
-        // Testing tile flip
-        if(Input.GetMouseButtonDown(1))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
-            {
-                WorldSide side = hit.collider.GetComponentInParent<WorldSide>();
-                if (side != null)
-                {
-                    side.Flip();
-                }
-            }
-        }
     }
 
     protected void LateUpdate()
     {
-
         m_lastMousePos = Input.mousePosition;
     }
 
     protected bool PlayerInputIsBlocked()
     {
-        return m_world.m_isRotating | m_player.m_isAnimating;
+        return m_player.m_isAnimating | m_world.m_isRotating;
     }
 }
