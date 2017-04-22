@@ -29,7 +29,9 @@ public class Main : Singleton<Main> {
 
     protected void Start()
     {
+        
         m_player.SetTile(m_world.Sides[0].m_hiddenTile);
+        m_world.Sides[0].m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
         m_world.Sides[0].Flip();
         DOVirtual.DelayedCall(1.0f, () =>
         {
@@ -64,7 +66,7 @@ public class Main : Singleton<Main> {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
             {
                 WorldSide side = hit.collider.GetComponentInParent<WorldSide>();
-                if (side != null)
+                if (side != null && !side.Contains(m_player))
                 {
                     side.Flip();
                 }

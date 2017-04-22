@@ -13,6 +13,20 @@ public class BaseTile : BaseObject {
         m_side = side;
         m_objs = new List<BaseObject>();
     }
+
+    public void SetModel(GameObject modelPrefab)
+    {
+        if(m_model != null)
+        {
+            Destroy(m_model.gameObject);
+        }
+
+        GameObject modelObj = Instantiate(modelPrefab);
+        m_model = modelObj.transform;
+        m_model.parent = transform;
+        m_model.localPosition = Vector3.zero;
+        m_model.localRotation = Quaternion.identity;
+    }
     
     public bool Contains(BaseObject obj)
     {

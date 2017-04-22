@@ -7,7 +7,7 @@ using DG.Tweening;
 public class WorldSide : BaseObject, IClickable {
     public const float FLIP_POS = 1.0f;
     public const float FLIP_MOVE_TIME = 0.33f;
-    public readonly static Vector3 FLIP_TO_BOTTOM_ROTATE_ANGLE = new Vector3(180,0,0);
+    public readonly static Vector3 FLIP_TO_BOTTOM_ROTATE_ANGLE = new Vector3(180, 0, 0);
     public const float FLIP_ROTATE_TIME = 0.5f;
 
     [SerializeField] private Transform m_pivot;
@@ -20,7 +20,7 @@ public class WorldSide : BaseObject, IClickable {
     public bool m_isEmpty { get { return m_showingTile == null || m_showingTile.m_isEmpty; } }
 
 
-    private World m_world;
+    public World m_world { get; protected set; }
     private Sequence m_flipSequence;
 
     public void Init(World world)
@@ -31,8 +31,8 @@ public class WorldSide : BaseObject, IClickable {
         m_topTile.Init(this);
         m_bottomTile.Init(this);
 
-        m_topTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
-        m_bottomTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
+        //m_topTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
+        //m_bottomTile.SetColor(new Color(0, UnityEngine.Random.Range(0.25f, 1.0f), UnityEngine.Random.Range(0.1f, 0.75f)));
 
         m_flipSequence = DOTween.Sequence();
         m_flipSequence.Append(m_pivot.DOLocalMoveY(FLIP_POS, FLIP_MOVE_TIME).SetEase(Ease.InOutBack))

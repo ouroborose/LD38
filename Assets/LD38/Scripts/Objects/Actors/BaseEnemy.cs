@@ -33,10 +33,7 @@ public class BaseEnemy : BaseActor
             else
             {
                 // spawn item on other side
-                
-
-                // flip/die
-                m_tile.m_side.Flip();
+                m_tile.m_side.m_world.SpawnObject(m_tile.m_side);
             }
         });
     }
