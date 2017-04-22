@@ -11,4 +11,14 @@ public class BaseTile : BaseObject {
     {
         m_obj = obj;
     }
+
+    public void DestroyObj()
+    {
+        if(m_obj != null)
+        {
+            Destroy(m_obj.gameObject);
+        }
+
+        m_obj = null;
+    }
 }

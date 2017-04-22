@@ -51,19 +51,24 @@ public class WorldSide : BaseObject, IClickable {
             return;
         }
 
-        if (Vector3.Dot(player.transform.forward, transform.up) > 0.9f)
-        {
-            // already facing
-            DetermineAction();
-        }
-        else
-        {
-            player.FaceDir(transform.up, DetermineAction);
-        }
+        player.FaceDir(transform.up, DetermineAction);
     }
 
     protected void DetermineAction()
     {
+        BaseEnemy enemy = m_showingTile.m_obj as BaseEnemy;
+        if (enemy != null)
+        {
+            // attack
+            return;
+        }
+
+        BaseChest chest = m_showingTile.m_obj as BaseChest;
+        if(chest != null)
+        {
+            return;
+        }
+
         m_world.RotateToSide(this);
     }
 
@@ -86,8 +91,15 @@ public class WorldSide : BaseObject, IClickable {
         m_showingTile.transform.localEulerAngles = tempEuler;
 
         m_showingTile = m_hiddenTile;
+        m_hiddenTile.DestroyObj();
+
         m_flipSequence.Rewind();
 
         AnimationEnded();
+    }
+
+    public bool Contains(BaseObject obj)
+    {
+        return m_topTile.m_obj == obj || m_bottomTile.m_obj == obj;
     }
 }

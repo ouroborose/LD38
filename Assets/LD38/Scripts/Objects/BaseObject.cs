@@ -34,7 +34,7 @@ public class BaseObject : MonoBehaviour {
         }
     }
 
-    public void DetachFromTile()
+    public virtual void DetachFromTile()
     {
         if(m_tile != null)
         {
@@ -44,10 +44,10 @@ public class BaseObject : MonoBehaviour {
         transform.parent = null;
     }
 
-    public void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))
+    public virtual void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))
     {
         m_tile = tile;
-        m_tile.SetObject(tile);
+        m_tile.SetObject(this);
         transform.parent = m_tile.transform;
         transform.localPosition = Vector3.zero;
         if(rotateToTile)

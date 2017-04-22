@@ -12,6 +12,8 @@ public class Main : Singleton<Main> {
     [SerializeField] private World m_world;
     [SerializeField] private CameraController m_camera;
 
+    [SerializeField] BiomeData m_startingBiomeData;
+
     [Header("Controls")]
     [SerializeField] private float m_mouseDragThreshold = 20;
 
@@ -28,12 +30,19 @@ public class Main : Singleton<Main> {
     protected void Start()
     {
         m_player.SetTile(m_world.Sides[0].m_hiddenTile);
-        Sequence startSequence = DOTween.Sequence();
+        m_world.Sides[0].Flip();
+        DOVirtual.DelayedCall(1.0f, () =>
+        {
+            m_world.Populate(m_startingBiomeData);
+        });
+        
+        /*
         for (int i = 0; i < m_world.Sides.Length; ++i)
         {
             startSequence.AppendCallback(m_world.Sides[i].Flip);
             startSequence.AppendInterval(WorldSide.FLIP_MOVE_TIME);
         }
+        */
     }
 
     protected void Update()
@@ -122,6 +131,6 @@ public class Main : Singleton<Main> {
 
     protected bool PlayerInputIsBlocked()
     {
-        return m_player.m_isAnimating | m_world.m_isRotating;
+        return m_player.m_isAnimating | m_world.m_isBusy;
     }
 }

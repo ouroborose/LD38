@@ -51,3 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca9faeb83279c44e92e0c2d1bc82681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_world: {fileID: 0}
+  m_camera: {fileID: 0}
+  m_startingBiomeData: {fileID: 11400000, guid: 85595909c73412941b786635b9853d15,
+    type: 2}
+  m_mouseDragThreshold: 20
