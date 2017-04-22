@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Name: GrassBiome
   m_EditorClassIdentifier: 
   m_tiles: 0100000000000000020000000300000000000000
-  m_tileModelPrefabs: []
+  m_tileModelPrefabs:
+  - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
   m_enemyPrefabs: []
-  m_itemPrefabs: []
+  m_chestPrefabs: []
+  m_trapPrefabs: []
