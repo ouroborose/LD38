@@ -14,6 +14,8 @@ public class Main : Singleton<Main> {
     [SerializeField] private World m_world;
     public World World { get { return m_world; } }
 
+    public GameObject m_keyPrefab;
+
     [SerializeField] private BiomeData m_startingBiomeData;
     [SerializeField] private BiomeData[] m_biomes;
 
@@ -53,7 +55,7 @@ public class Main : Singleton<Main> {
 
     protected void Update()
     {
-        //UpdateDebugControls();
+        UpdateDebugControls();
         UpdatePlayerControls();
     }
     
@@ -61,7 +63,7 @@ public class Main : Singleton<Main> {
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            m_world.FlipAllEmptyTiles();
+            AdvanceToNextStage();
         }
         
         if (Input.GetMouseButtonDown(1))

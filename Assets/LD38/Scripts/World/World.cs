@@ -61,6 +61,7 @@ public class World : MonoBehaviour {
     protected IEnumerator HandleWorldPopulation(BiomeData data)
     {
         m_currentBiomeData = data;
+
         int tileIndex = 0;
         for (int i = 0; i < m_sides.Length; ++i)
         {
@@ -69,8 +70,14 @@ public class World : MonoBehaviour {
             {
                 continue;
             }
-            
-            switch (m_currentBiomeData.m_tiles[tileIndex])
+
+            BiomeData.TileType type = m_currentBiomeData.m_tiles[tileIndex];
+            if(m_currentBiomeData.m_randomlyGenerateLayout)
+            {
+                type = m_currentBiomeData.GetGeneratedType();
+            }
+
+            switch (type)
             {
                 case BiomeData.TileType.Enemy:
                     SpawnRandomPrefab(side, m_currentBiomeData.m_enemyPrefabs);
@@ -90,6 +97,7 @@ public class World : MonoBehaviour {
             yield return new WaitForSeconds(WORLD_POPULATION_STEP_TIME);
             tileIndex++;
         }
+
         m_isBusy = false;
     }
 

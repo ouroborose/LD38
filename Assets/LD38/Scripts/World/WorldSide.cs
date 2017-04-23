@@ -69,21 +69,14 @@ public class WorldSide : BaseObject, IClickable {
                 return;
             }
 
-            BaseEnemy enemy = obj as BaseEnemy;
-            if (enemy != null)
+            BaseActor actor = obj as BaseActor;
+            if (actor != null)
             {
                 // attack
-                if(enemy.m_currentHP > 0)
+                if(actor.m_currentHP > 0)
                 {
-                    player.Attack(enemy);
+                    player.Attack(actor);
                 }
-                return;
-            }
-
-            BaseChest chest = obj as BaseChest;
-            if (chest != null)
-            {
-                chest.Open(player);
                 return;
             }
         }

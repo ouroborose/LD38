@@ -193,6 +193,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4815757996947726, guid: 9506eb8d502238d45ab81540166cc67f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -224,6 +229,41 @@ Prefab:
     - target: {fileID: 4815757996947726, guid: 9506eb8d502238d45ab81540166cc67f, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[0].m_probability
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[1].m_type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[2].m_type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[3].m_type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[1].m_probability
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[2].m_probability
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+        type: 2}
+      propertyPath: m_generationProbabilities.Array.data[3].m_probability
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9506eb8d502238d45ab81540166cc67f, type: 2}

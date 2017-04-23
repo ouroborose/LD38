@@ -1076,6 +1076,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_model: {fileID: 4190183099230226}
+  m_baseHP: 3
+  m_baseAttack: 0
   m_itemSpawnPos: {fileID: 4002772316806214}
   m_keyPivot: {fileID: 4518239878528882}
   m_sides:

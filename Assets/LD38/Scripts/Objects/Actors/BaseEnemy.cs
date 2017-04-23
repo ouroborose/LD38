@@ -49,11 +49,7 @@ public class BaseEnemy : BaseActor
             else
             {
                 // spawn item on other side
-                BaseObject obj = Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
-                if(obj != null)
-                {
-                    obj.gameObject.AddComponent<Spin>();
-                }
+                Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
             }
         });
     }
