@@ -12,9 +12,12 @@ public class BaseChest : BaseActor {
 
     protected override void Awake()
     {
-        base.Awake();
         m_keyPivot.gameObject.SetActive(false);
         s_allChests.Add(this);
+
+        m_baseHP = Main.Instance.Player.CalculateAttackDamage() * 3;
+
+        base.Awake();
     }
 
     protected override void OnDestroy()

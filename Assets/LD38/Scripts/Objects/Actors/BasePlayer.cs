@@ -6,13 +6,20 @@ using UnityEngine;
 public class BasePlayer : BaseActor
 {
     public int m_numKeys { get; protected set; }
-    public int m_maxHpBonus { get; protected set; }
-    public int m_atkBonus { get; protected set; }
-    
+
+    [SerializeField] private EquipmentSlot[] m_equipmentSlots;
+
+    private Dictionary<BaseEquipment.EquipmentSlotId, EquipmentSlot> m_equipmentSlotMapping = new Dictionary<BaseEquipment.EquipmentSlotId, EquipmentSlot>();
 
     protected override void Awake()
     {
         base.Awake();
+
+        for (int i = 0; i < m_equipmentSlots.Length; ++i)
+        {
+            m_equipmentSlotMapping.Add(m_equipmentSlots[i].m_id, m_equipmentSlots[i]);
+        }
+
         Reset();
     }
 
@@ -21,6 +28,12 @@ public class BasePlayer : BaseActor
         m_numKeys = 0;
         m_atkBonus = 0;
         m_maxHpBonus = 0;
+
+        for (int i = 0; i < m_equipmentSlots.Length; ++i)
+        {
+            m_equipmentSlots[i].RemoveEquipment();
+        }
+
         base.Reset();
     }
 
@@ -41,18 +54,15 @@ public class BasePlayer : BaseActor
     {
         m_atkBonus += equipment.m_atkBonus;
         m_maxHpBonus += equipment.m_hpBonus;
+        m_currentHP += equipment.m_hpBonus;
+
+        EquipmentSlot slot;
+        if(m_equipmentSlotMapping.TryGetValue(equipment.m_equipmentSlot, out slot))
+        {
+            slot.Equip(equipment);
+        }
 
         DispatchChangedEvent();
-    }
-
-    public override int CalculateAttackDamage()
-    {
-        return base.CalculateAttackDamage() + m_atkBonus;
-    }
-
-    public override int CalculateMaxHP()
-    {
-        return base.CalculateMaxHP() + m_maxHpBonus;
     }
 
     public override void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))

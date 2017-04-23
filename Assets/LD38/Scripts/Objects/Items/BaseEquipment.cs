@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseEquipment : BaseItem {
-    public enum EquipmentSlot
+    public enum EquipmentSlotId
     {
         None = 0,
         RightHand,
         LeftHand,
     }
 
-    public EquipmentSlot m_equipmentSlot = EquipmentSlot.None;
+    public EquipmentSlotId m_equipmentSlot = EquipmentSlotId.None;
 
     public int m_atkBonus = 0;
     public int m_hpBonus = 0;

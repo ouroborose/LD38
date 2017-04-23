@@ -20,6 +20,21 @@ public class BaseEnemy : BaseActor
         s_allEnemies.Remove(this);
         base.OnDestroy();
     }
+    public override void Reset()
+    {
+        if (Main.Instance.m_currentLevel > 0)
+        {
+            float scaler = Mathf.Pow(1.15f, Main.Instance.m_currentLevel);
+            m_maxHpBonus = Mathf.FloorToInt(m_baseHP * scaler);
+            m_atkBonus = Mathf.FloorToInt(m_baseAttack * scaler);
+        }
+        else
+        {
+            m_maxHpBonus = 0;
+            m_atkBonus = 0;
+        }
+        base.Reset();
+    }
 
     public override void TakeDamage(int amount, BaseObject damageSource = null)
     {

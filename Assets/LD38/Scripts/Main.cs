@@ -55,6 +55,7 @@ public class Main : Singleton<Main> {
 
     public void AdvanceToNextStage()
     {
+        m_currentLevel++;
         m_world.Populate(m_biomes[UnityEngine.Random.Range(0, m_biomes.Length)]);
     }
 

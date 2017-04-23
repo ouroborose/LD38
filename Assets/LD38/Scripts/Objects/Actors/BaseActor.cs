@@ -21,6 +21,9 @@ public class BaseActor : BaseObject
 
     [SerializeField] protected int m_baseAttack = 1;
 
+    public int m_maxHpBonus { get; protected set; }
+    public int m_atkBonus { get; protected set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,7 +32,7 @@ public class BaseActor : BaseObject
 
     public virtual void Reset()
     {
-        m_currentHP = m_baseHP;
+        m_currentHP = CalculateMaxHP();
         DispatchChangedEvent();
     }
 
@@ -88,12 +91,12 @@ public class BaseActor : BaseObject
 
     public virtual int CalculateAttackDamage()
     {
-        return m_baseAttack;
+        return m_baseAttack + m_atkBonus;
     }
 
     public virtual int CalculateMaxHP()
     {
-        return m_baseHP;
+        return m_baseHP + m_maxHpBonus;
     }
 
     public virtual void Heal(int amount)

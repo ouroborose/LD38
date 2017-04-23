@@ -37,3 +37,4 @@ MonoBehaviour:
   - {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e, type: 2}
   m_chestDropPrefabs:
   - {fileID: 1887414941349312, guid: 38402c2716674f548934507ba8ce39fe, type: 2}
+  - {fileID: 1604498593904962, guid: 8dedf939b6ccba74c8d288415147be41, type: 2}
