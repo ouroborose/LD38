@@ -53,7 +53,7 @@ public class Main : Singleton<Main> {
 
     protected void Update()
     {
-        UpdateDebugControls();
+        //UpdateDebugControls();
         UpdatePlayerControls();
     }
     
@@ -63,7 +63,7 @@ public class Main : Singleton<Main> {
         {
             m_world.FlipAllEmptyTiles();
         }
-
+        
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
