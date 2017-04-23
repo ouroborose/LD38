@@ -9,4 +9,9 @@ public class BaseTrap : BaseObject {
     {
         actor.TakeDamage(m_baseDamage, this);
     }
+
+    public override string CreateInfoText()
+    {
+        return base.CreateInfoText() + string.Format("\nDmg: {0}", m_baseDamage);
+    }
 }
