@@ -21,6 +21,6 @@ MonoBehaviour:
   m_trapPrefabs:
   - {fileID: 1012742665190412, guid: 178f763dee9af0d4881aeab77ca9e4d0, type: 2}
   m_enemyDropPrefabs:
-  - {fileID: 1885864354936888, guid: d831da257135c104eaf7057d14091efa, type: 2}
+  - {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e, type: 2}
   m_chestDropPrefabs:
   - {fileID: 1312337937294578, guid: be3cf422c7d022b429cc826a6e854906, type: 2}
