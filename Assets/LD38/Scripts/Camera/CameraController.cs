@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour {
             {
                 m_rotation = m_bestFinishRotation;
                 m_isFinishingRotation = false;
+                EventManager.OnViewRotateFinished.Dispatch();
             }
         }
         transform.eulerAngles = new Vector3(0, m_rotation, 0);

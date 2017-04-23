@@ -54,6 +54,7 @@ public class World : MonoBehaviour {
 
     public void Populate(BiomeData data)
     {
+        EventManager.OnLevelPopulationStarted.Dispatch();
         m_isBusy = true;
         StartCoroutine(HandleWorldPopulation(data));
     }
@@ -99,6 +100,7 @@ public class World : MonoBehaviour {
         }
 
         m_isBusy = false;
+        EventManager.OnLevelPopulationFinished.Dispatch();
     }
 
     public BaseObject SpawnRandomPrefab(WorldSide side, GameObject[] prefabs = null)

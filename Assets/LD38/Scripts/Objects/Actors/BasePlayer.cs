@@ -18,29 +18,31 @@ public class BasePlayer : BaseActor
 
     public override void Reset()
     {
-        base.Reset();
         m_numKeys = 0;
         m_attackBonus = 0;
         m_maxHpBonus = 0;
+        base.Reset();
     }
 
     [ContextMenu("Give Key")]
     public void AddKey()
     {
         m_numKeys++;
+        DispatchChangedEvent();
     }
 
     public void RemoveKey()
     {
         m_numKeys--;
+        DispatchChangedEvent();
     }
 
-    protected override int CalculateAttackDamage()
+    public override int CalculateAttackDamage()
     {
         return base.CalculateAttackDamage() + m_attackBonus;
     }
 
-    protected override int CalculateMaxHP()
+    public override int CalculateMaxHP()
     {
         return base.CalculateMaxHP() + m_maxHpBonus;
     }
@@ -66,5 +68,10 @@ public class BasePlayer : BaseActor
                 trap.Activate(this);
             }
         }
+    }
+
+    public override string CreateInfoText()
+    {
+        return base.CreateInfoText() + string.Format("\nKeys: {0}", m_numKeys);
     }
 }

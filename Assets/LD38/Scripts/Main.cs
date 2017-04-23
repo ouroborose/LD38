@@ -19,6 +19,8 @@ public class Main : Singleton<Main> {
     [SerializeField] private BiomeData m_startingBiomeData;
     [SerializeField] private BiomeData[] m_biomes;
 
+    public int m_currentLevel { get; protected set; }
+
     [Header("Controls")]
     [SerializeField] private float m_mouseDragThreshold = 20;
 
@@ -29,6 +31,9 @@ public class Main : Singleton<Main> {
     protected override void Awake()
     {
         base.Awake();
+
+        m_currentLevel = 0;
+
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 

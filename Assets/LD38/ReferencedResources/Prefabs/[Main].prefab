@@ -54,6 +54,8 @@ MonoBehaviour:
   m_camera: {fileID: 0}
   m_player: {fileID: 0}
   m_world: {fileID: 0}
+  m_keyPrefab: {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e,
+    type: 2}
   m_startingBiomeData: {fileID: 11400000, guid: 85595909c73412941b786635b9853d15,
     type: 2}
   m_biomes:

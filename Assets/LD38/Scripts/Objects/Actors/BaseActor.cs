@@ -30,6 +30,7 @@ public class BaseActor : BaseObject
     public virtual void Reset()
     {
         m_currentHP = m_baseHP;
+        DispatchChangedEvent();
     }
 
     public virtual void FaceDir(Vector3 worldDir, TweenCallback onComplete = null)
@@ -85,12 +86,12 @@ public class BaseActor : BaseObject
         }
     }
 
-    protected virtual int CalculateAttackDamage()
+    public virtual int CalculateAttackDamage()
     {
         return m_baseAttack;
     }
 
-    protected virtual int CalculateMaxHP()
+    public virtual int CalculateMaxHP()
     {
         return m_baseHP;
     }
@@ -103,6 +104,7 @@ public class BaseActor : BaseObject
         {
             m_currentHP = maxHP;
         }
+        DispatchChangedEvent();
     }
 
     public virtual void TakeDamage(int amount, BaseObject damageSource = null)
@@ -114,5 +116,16 @@ public class BaseActor : BaseObject
         }
 
         Shake(DAMAGE_SHAKE_DIST, DAMAGE_TIME);
+        DispatchChangedEvent();
+    }
+
+    public virtual void DispatchChangedEvent()
+    {
+        EventManager.OnObjectChanged.Dispatch(this);
+    }
+
+    public override string CreateInfoText()
+    {
+        return base.CreateInfoText() + string.Format("\nHp: {0}/{1}\nAtk: {2}", m_currentHP, CalculateMaxHP(), CalculateAttackDamage());
     }
 }

@@ -27,6 +27,15 @@ public class BaseTile : BaseObject {
         m_model.localPosition = Vector3.zero;
         m_model.localRotation = Quaternion.identity;
     }
+
+    public BaseObject GetFirstObject()
+    {
+        if(m_objs.Count > 0)
+        {
+            return m_objs[0];
+        }
+        return null;
+    }
     
     public bool Contains(BaseObject obj)
     {

@@ -91,6 +91,7 @@ public class WorldSide : BaseObject, IClickable {
             return;
         }
 
+        EventManager.OnSideFlipStarted.Dispatch(this);
         IncrementBusyCounter();
         m_flipSequence.Play();
     }
@@ -108,6 +109,7 @@ public class WorldSide : BaseObject, IClickable {
         m_flipSequence.Rewind();
 
         DecrementBusyCounter();
+        EventManager.OnSideFlipFinished.Dispatch(this);
     }
 
     public bool Contains(BaseObject obj)

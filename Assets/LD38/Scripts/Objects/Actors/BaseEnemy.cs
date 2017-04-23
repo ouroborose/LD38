@@ -49,7 +49,16 @@ public class BaseEnemy : BaseActor
             else
             {
                 // spawn item on other side
-                Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
+                if(Main.Instance.Player.m_numKeys <= 0 && BaseChest.s_allChests.Count > 0 && BaseKey.s_allKeys.Count <= 0)
+                {
+                    // always spawn a key if player has none and there is a chest in the world
+                    Main.Instance.World.SpawnObject(m_tile.m_side, Main.Instance.m_keyPrefab);
+                }
+                else
+                {
+                    Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
+                }
+                
             }
         });
     }

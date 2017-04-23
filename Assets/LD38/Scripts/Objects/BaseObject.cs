@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 public class BaseObject : MonoBehaviour {
+    public string m_displayName;
     [SerializeField] protected Transform m_model;
     public Transform Model { get { return m_model; } }
 
@@ -21,6 +22,7 @@ public class BaseObject : MonoBehaviour {
 
     protected virtual void OnDestroy()
     {
+        EventManager.OnObjectDestroyed.Dispatch(this);
         if(m_tile != null)
         {
             DetachFromTile();
@@ -76,5 +78,15 @@ public class BaseObject : MonoBehaviour {
         IncrementBusyCounter();
         m_model.localPosition = Vector3.zero;
         m_model.DOShakePosition(duration, shakeDir * magnitude, 20).OnComplete(DecrementBusyCounter);
+    }
+
+    public virtual string CreateInfoText()
+    {
+        return m_displayName;
+    }
+    
+    public virtual void DispatchChangedEvent()
+    {
+        EventManager.OnObjectChanged.Dispatch(this);
     }
 }
