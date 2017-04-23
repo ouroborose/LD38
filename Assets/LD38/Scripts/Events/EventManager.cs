@@ -7,6 +7,8 @@ public static class EventManager
     public static readonly EventCallBack<BaseObject> OnObjectChanged = new EventCallBack<BaseObject>();
     public static readonly EventCallBack<BaseObject> OnObjectDestroyed = new EventCallBack<BaseObject>();
 
+    public static readonly EventCallBack<BaseObject> OnItemSpawned = new EventCallBack<BaseObject>();
+
     public static readonly EventCallBack<WorldSide> OnSideFlipStarted = new EventCallBack<WorldSide>();
     public static readonly EventCallBack<WorldSide> OnSideFlipFinished = new EventCallBack<WorldSide>();
 

@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour {
     {
         m_isFinishingRotation = false;
         m_rotationDelta = 0.0f;
+        EventManager.OnViewRotateStarted.Dispatch();
     }
 
     public void RotateCamera(Vector3 mouseDelta)

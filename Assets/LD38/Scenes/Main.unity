@@ -322,6 +322,12 @@ Prefab:
       propertyPath: m_world
       value: 
       objectReference: {fileID: 1351552525}
+    - target: {fileID: 114137193650941760, guid: 9e883b28c16a4fd429e438e13a772a8d,
+        type: 2}
+      propertyPath: m_startingBiomeData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f54d042f55054641b495e067c4e55cb,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e883b28c16a4fd429e438e13a772a8d, type: 2}
   m_IsPrefabParent: 0

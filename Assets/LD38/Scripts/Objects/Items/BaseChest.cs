@@ -57,7 +57,8 @@ public class BaseChest : BaseActor {
                         BaseItem item = dropObj.GetComponent<BaseItem>();
                         item.SetTile(m_tile);
                         item.Model.position = m_itemSpawnPos.position;
-                        item.Model.forward = m_tile.transform.up;
+                        item.Model.rotation = transform.rotation;
+                        EventManager.OnItemSpawned.Dispatch(item);
                     }
                 }
                 Destroy(gameObject, 0.5f);

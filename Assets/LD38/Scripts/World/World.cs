@@ -142,6 +142,7 @@ public class World : MonoBehaviour {
     public void RotateToSide(WorldSide side)
     {
         m_isBusy = true;
+        EventManager.OnWorldRotationStarted.Dispatch();
         transform.DORotateQuaternion(Quaternion.FromToRotation(Vector3.up, -side.transform.up) * transform.rotation, ROTATE_TO_SIDE_TIME).SetEase(Ease.InOutBack).OnComplete(OnRotateComplete);
         BasePlayer player = Main.Instance.Player;
         player.DetachFromTile();
@@ -149,7 +150,7 @@ public class World : MonoBehaviour {
         {
             player.SetTile(side.m_showingTile, false);
             HandlePortalSpawning();
-            
+            EventManager.OnWorldRotationFinished.Dispatch();
         });
     }
 

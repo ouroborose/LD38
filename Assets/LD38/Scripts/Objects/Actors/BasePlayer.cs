@@ -7,7 +7,7 @@ public class BasePlayer : BaseActor
 {
     public int m_numKeys { get; protected set; }
     public int m_maxHpBonus { get; protected set; }
-    public int m_attackBonus { get; protected set; }
+    public int m_atkBonus { get; protected set; }
     
 
     protected override void Awake()
@@ -19,7 +19,7 @@ public class BasePlayer : BaseActor
     public override void Reset()
     {
         m_numKeys = 0;
-        m_attackBonus = 0;
+        m_atkBonus = 0;
         m_maxHpBonus = 0;
         base.Reset();
     }
@@ -37,9 +37,17 @@ public class BasePlayer : BaseActor
         DispatchChangedEvent();
     }
 
+    public void Equip(BaseEquipment equipment)
+    {
+        m_atkBonus += equipment.m_atkBonus;
+        m_maxHpBonus += equipment.m_hpBonus;
+
+        DispatchChangedEvent();
+    }
+
     public override int CalculateAttackDamage()
     {
-        return base.CalculateAttackDamage() + m_attackBonus;
+        return base.CalculateAttackDamage() + m_atkBonus;
     }
 
     public override int CalculateMaxHP()

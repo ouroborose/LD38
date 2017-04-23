@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 380db45fe60ff8d44b89597fcea57530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_displayName: Potion
   m_model: {fileID: 4648426408587162}
-  m_healAmount: 10
 --- !u!135 &135755136087841060
 SphereCollider:
   m_ObjectHideFlags: 1

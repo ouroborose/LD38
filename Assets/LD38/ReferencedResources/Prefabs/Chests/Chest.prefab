@@ -1070,6 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f968e4bf930bf0479662eb3e5c1f778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_displayName: Chest
   m_model: {fileID: 4190183099230226}
   m_baseHP: 3
   m_baseAttack: 0

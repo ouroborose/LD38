@@ -222,7 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5b99750dc6aac47875b0419dc17167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_displayName: Shield
   m_model: {fileID: 4695203241254434}
+  m_equipmentSlot: 2
+  m_atkBonus: 0
+  m_hpBonus: 1
 --- !u!136 &136116303575592050
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -25,6 +25,7 @@ public class UIManager : Singleton<UIManager> {
         EventManager.OnWorldRotationFinished.Register(OnWorldRotationFinished);
         EventManager.OnSideFlipStarted.Register(OnSideFlipStarted);
         EventManager.OnSideFlipFinished.Register(OnSideFlipFinished);
+        EventManager.OnItemSpawned.Register(OnItemSpawned);
 
         EventManager.OnLevelPopulationStarted.Register(OnLevelPopulationStarted);
         EventManager.OnLevelPopulationFinished.Register(OnLevelPopulationFinished);
@@ -45,6 +46,7 @@ public class UIManager : Singleton<UIManager> {
         EventManager.OnWorldRotationFinished.Unregister(OnWorldRotationFinished);
         EventManager.OnSideFlipStarted.Register(OnSideFlipStarted);
         EventManager.OnSideFlipFinished.Register(OnSideFlipFinished);
+        EventManager.OnItemSpawned.Unregister(OnItemSpawned);
 
         EventManager.OnLevelPopulationStarted.Unregister(OnLevelPopulationStarted);
         EventManager.OnLevelPopulationFinished.Unregister(OnLevelPopulationFinished);
@@ -53,6 +55,7 @@ public class UIManager : Singleton<UIManager> {
 
     protected void OnViewRotateStarted()
     {
+        HideLeftRightInfo();
     }
 
     protected void OnViewRotateFinished()
@@ -62,6 +65,7 @@ public class UIManager : Singleton<UIManager> {
 
     protected void OnWorldRoationStarted()
     {
+        HideLeftRightInfo();
     }
 
     protected void OnWorldRotationFinished()
@@ -71,9 +75,16 @@ public class UIManager : Singleton<UIManager> {
 
     private void OnSideFlipStarted(WorldSide obj)
     {
+
     }
 
     private void OnSideFlipFinished(WorldSide obj)
+    {
+        ShowLeftRightInfo();
+    }
+
+
+    private void OnItemSpawned(BaseObject obj)
     {
         ShowLeftRightInfo();
     }

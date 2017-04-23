@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3957e029d2b4c89439cc729f81f90e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_displayName: Portal
   m_model: {fileID: 4158140849133462}
 --- !u!114 &114900233445698748
 MonoBehaviour:
