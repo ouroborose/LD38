@@ -73,7 +73,10 @@ public class WorldSide : BaseObject, IClickable {
             if (enemy != null)
             {
                 // attack
-                player.Attack(enemy);
+                if(enemy.m_currentHP > 0)
+                {
+                    player.Attack(enemy);
+                }
                 return;
             }
 

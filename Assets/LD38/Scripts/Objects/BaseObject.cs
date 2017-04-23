@@ -70,6 +70,7 @@ public class BaseObject : MonoBehaviour {
     public void Shake(float magnitude, float duration)
     {
         Vector3 shakeDir = UnityEngine.Random.onUnitSphere;
+        
         shakeDir.y = 0.0f;
         shakeDir.Normalize();
         IncrementBusyCounter();

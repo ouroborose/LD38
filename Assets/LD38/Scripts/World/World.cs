@@ -67,7 +67,6 @@ public class World : MonoBehaviour {
             WorldSide side = m_sides[i];
             if (side.Contains(Main.Instance.Player))
             {
-                Debug.Log("player found");
                 continue;
             }
             
@@ -109,14 +108,13 @@ public class World : MonoBehaviour {
     {
         PopulateTileModel(side);
 
-        if (prefab == null)
+        BaseObject objScript = null;
+        if (prefab != null)
         {
-            return null;
+            GameObject obj = Instantiate(prefab) as GameObject;
+            objScript = obj.GetComponent<BaseObject>();
+            objScript.SetTile(side.m_hiddenTile, true, new Vector3(0, 90 * UnityEngine.Random.Range(0, 4), 0));
         }
-
-        GameObject obj = Instantiate(prefab) as GameObject;
-        BaseObject objScript = obj.GetComponent<BaseObject>();
-        objScript.SetTile(side.m_hiddenTile, true, new Vector3(0, 90 * UnityEngine.Random.Range(0, 4), 0));
 
         side.Flip();
 

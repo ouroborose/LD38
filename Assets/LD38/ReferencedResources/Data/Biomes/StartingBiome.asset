@@ -11,12 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38eecb228bb63a34da51661c75dcbcea, type: 3}
   m_Name: StartingBiome
   m_EditorClassIdentifier: 
-  m_tiles: 0100000000000000020000000000000000000000
+  m_tiles: 0100000000000000000000000200000000000000
   m_tileModelPrefabs:
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
-  - {fileID: 1137962990583262, guid: 606d3edaab1cde2419ee7e51e8e520c2, type: 2}
-  - {fileID: 1364682536118544, guid: 922d10fc36d05834681ea31b67e1b2c6, type: 2}
-  - {fileID: 1539596145630582, guid: 5ccae7a5b5f96004ebe24cc104b701bd, type: 2}
   m_enemyPrefabs:
   - {fileID: 1337631250571514, guid: 514862b2bc361e641a51d1ce581b4d53, type: 2}
   m_chestPrefabs:
