@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTile : BaseObject {
-    public bool m_isEmpty { get { return m_objs.Count > 0; } }
+    public bool m_isEmpty { get { return m_objs.Count <= 0; } }
     
     public List<BaseObject> m_objs { get; protected set; }
     public WorldSide m_side { get; protected set; }

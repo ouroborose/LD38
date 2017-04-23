@@ -5,7 +5,21 @@ using DG.Tweening;
 
 public class BaseEnemy : BaseActor
 {
+    public static readonly List<BaseEnemy> s_allEnemies = new List<BaseEnemy>();
+
     protected const float DAMAGE_FEEDBACK_DELAY = 0.25f;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        s_allEnemies.Add(this);
+    }
+
+    protected override void OnDestroy()
+    {
+        s_allEnemies.Remove(this);
+        base.OnDestroy();
+    }
 
     public override void TakeDamage(int amount, BaseObject damageSource = null)
     {
@@ -35,7 +49,7 @@ public class BaseEnemy : BaseActor
             else
             {
                 // spawn item on other side
-                m_tile.m_side.m_world.SpawnObject(m_tile.m_side, m_tile.m_side.m_world.m_currentBiomeData.m_enemyDropPrefabs);
+                m_tile.m_side.m_world.SpawnRandomPrefab(m_tile.m_side, m_tile.m_side.m_world.m_currentBiomeData.m_enemyDropPrefabs);
             }
         });
     }

@@ -2203,7 +2203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f93832ed3500f40a91d22f727cf4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotationTime: 0.5
+  m_portalPrefab: {fileID: 1329356547617288, guid: bbe11c82b5f208a48acaa41fd60ea10b,
+    type: 2}
   m_sides:
   - {fileID: 114368818680503146}
   - {fileID: 114578699061972350}
@@ -2211,7 +2212,6 @@ MonoBehaviour:
   - {fileID: 114336818176008022}
   - {fileID: 114431026648966464}
   - {fileID: 114466948788767372}
-  m_biomes: []
 --- !u!114 &114431026648966464
 MonoBehaviour:
   m_ObjectHideFlags: 1

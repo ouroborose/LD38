@@ -14,7 +14,8 @@ public class Main : Singleton<Main> {
     [SerializeField] private World m_world;
     public World World { get { return m_world; } }
 
-    [SerializeField] BiomeData m_startingBiomeData;
+    [SerializeField] private BiomeData m_startingBiomeData;
+    [SerializeField] private BiomeData[] m_biomes;
 
     [Header("Controls")]
     [SerializeField] private float m_mouseDragThreshold = 20;
@@ -31,7 +32,11 @@ public class Main : Singleton<Main> {
 
     protected void Start()
     {
-        
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         m_player.SetTile(m_world.Sides[0].m_hiddenTile);
         m_world.Sides[0].m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
         m_world.Sides[0].Flip();
@@ -39,14 +44,11 @@ public class Main : Singleton<Main> {
         {
             m_world.Populate(m_startingBiomeData);
         });
-        
-        /*
-        for (int i = 0; i < m_world.Sides.Length; ++i)
-        {
-            startSequence.AppendCallback(m_world.Sides[i].Flip);
-            startSequence.AppendInterval(WorldSide.FLIP_MOVE_TIME);
-        }
-        */
+    }
+
+    public void AdvanceToNextStage()
+    {
+        m_world.Populate(m_biomes[UnityEngine.Random.Range(0, m_biomes.Length)]);
     }
 
     protected void Update()

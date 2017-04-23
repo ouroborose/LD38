@@ -24,6 +24,7 @@ public class BasePlayer : BaseActor
         m_maxHpBonus = 0;
     }
 
+    [ContextMenu("Give Key")]
     public void AddKey()
     {
         m_numKeys++;
@@ -46,7 +47,9 @@ public class BasePlayer : BaseActor
 
     public override void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))
     {
-        for(int i = 0; i < tile.m_objs.Count; ++i)
+        base.SetTile(tile, rotateToTile, localRotation);
+
+        for (int i = 0; i < tile.m_objs.Count; ++i)
         {
             BaseObject obj = tile.m_objs[i];
             BaseItem item = obj as BaseItem;
@@ -63,7 +66,5 @@ public class BasePlayer : BaseActor
                 trap.Activate(this);
             }
         }
-
-        base.SetTile(tile, rotateToTile, localRotation);
     }
 }
