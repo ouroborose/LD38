@@ -15,7 +15,7 @@ MonoBehaviour:
   m_tileModelPrefabs:
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
   m_enemyPrefabs:
-  - {fileID: 1337631250571514, guid: 514862b2bc361e641a51d1ce581b4d53, type: 2}
+  - {fileID: 1757810940093056, guid: d93d9e1e48e5d3648a28e4b6867754c8, type: 2}
   m_chestPrefabs:
   - {fileID: 1948541252077624, guid: bb46bae3aced77348b380be998b28fc7, type: 2}
   m_trapPrefabs:
