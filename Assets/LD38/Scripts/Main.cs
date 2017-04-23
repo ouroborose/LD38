@@ -6,11 +6,13 @@ using DG.Tweening;
 
 public class Main : Singleton<Main> {
 
+    [SerializeField] private CameraController m_camera;
+
     [SerializeField] private BasePlayer m_player;
     public BasePlayer Player { get { return m_player; } }
 
     [SerializeField] private World m_world;
-    [SerializeField] private CameraController m_camera;
+    public World World { get { return m_world; } }
 
     [SerializeField] BiomeData m_startingBiomeData;
 

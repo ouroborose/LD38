@@ -74,7 +74,7 @@ public class BaseActor : BaseObject
         });
     }
 
-    public virtual void Attack(BaseActor target)
+    public virtual void Attack(BaseActor target = null)
     {
         IncrementBusyCounter();
         m_model.localPosition = Vector3.zero;
@@ -105,19 +105,14 @@ public class BaseActor : BaseObject
         }
     }
 
-    public virtual void TakeDamage(int amount, BaseObject damageSource)
+    public virtual void TakeDamage(int amount, BaseObject damageSource = null)
     {
         m_currentHP -= amount;
         if(m_currentHP < 0)
         {
             m_currentHP = 0;
         }
-        
-        Vector3 shakeDir = UnityEngine.Random.onUnitSphere;
-        shakeDir.y = 0.0f;
-        shakeDir.Normalize();
-        IncrementBusyCounter();
-        m_model.localPosition = Vector3.zero;
-        m_model.DOShakePosition(DAMAGE_TIME, shakeDir * DAMAGE_SHAKE_DIST, 20).OnComplete(DecrementBusyCounter);
+
+        Shake(DAMAGE_SHAKE_DIST, DAMAGE_TIME);
     }
 }

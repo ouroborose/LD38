@@ -7,7 +7,7 @@ public class BaseEnemy : BaseActor
 {
     protected const float DAMAGE_FEEDBACK_DELAY = 0.25f;
 
-    public override void TakeDamage(int amount, BaseObject damageSource)
+    public override void TakeDamage(int amount, BaseObject damageSource = null)
     {
         IncrementBusyCounter();
         base.TakeDamage(amount, damageSource);
