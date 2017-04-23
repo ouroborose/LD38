@@ -34,16 +34,16 @@ MonoBehaviour:
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
   m_enemyPrefabs:
-  - {fileID: 1337631250571514, guid: 514862b2bc361e641a51d1ce581b4d53, type: 2}
+  - {fileID: 1757810940093056, guid: d93d9e1e48e5d3648a28e4b6867754c8, type: 2}
   m_chestPrefabs:
   - {fileID: 1948541252077624, guid: bb46bae3aced77348b380be998b28fc7, type: 2}
   m_trapPrefabs:
   - {fileID: 1012742665190412, guid: 178f763dee9af0d4881aeab77ca9e4d0, type: 2}
   m_enemyDropPrefabs:
   - {fileID: 0}
-  - {fileID: 1312337937294578, guid: be3cf422c7d022b429cc826a6e854906, type: 2}
-  - {fileID: 1885864354936888, guid: d831da257135c104eaf7057d14091efa, type: 2}
+  - {fileID: 1154862730768578, guid: 15d87f49d348c6f4f8cccc4708071641, type: 2}
+  - {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e, type: 2}
   m_chestDropPrefabs:
-  - {fileID: 1312337937294578, guid: be3cf422c7d022b429cc826a6e854906, type: 2}
+  - {fileID: 1154862730768578, guid: 15d87f49d348c6f4f8cccc4708071641, type: 2}
   - {fileID: 1887414941349312, guid: 38402c2716674f548934507ba8ce39fe, type: 2}
   - {fileID: 1604498593904962, guid: 8dedf939b6ccba74c8d288415147be41, type: 2}

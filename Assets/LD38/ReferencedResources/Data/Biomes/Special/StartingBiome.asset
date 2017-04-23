@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Name: StartingBiome
   m_EditorClassIdentifier: 
   m_randomlyGenerateLayout: 0
+  m_layoutGenerationProbabilities:
+  - m_type: 0
+    m_probabilityWeight: 1
+  - m_type: 0
+    m_probabilityWeight: 1
+  - m_type: 0
+    m_probabilityWeight: 1
+  - m_type: 0
+    m_probabilityWeight: 1
   m_tiles: 0100000000000000000000000200000000000000
   m_tileModelPrefabs:
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
@@ -24,4 +33,4 @@ MonoBehaviour:
   m_enemyDropPrefabs:
   - {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e, type: 2}
   m_chestDropPrefabs:
-  - {fileID: 1312337937294578, guid: be3cf422c7d022b429cc826a6e854906, type: 2}
+  - {fileID: 1154862730768578, guid: 15d87f49d348c6f4f8cccc4708071641, type: 2}
