@@ -80,7 +80,7 @@ public class WorldSide : BaseObject, IClickable {
             BaseChest chest = obj as BaseChest;
             if (chest != null)
             {
-                
+                chest.Open(player);
                 return;
             }
         }

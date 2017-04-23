@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BaseObject : MonoBehaviour {
     [SerializeField] protected Transform m_model;
+    public Transform Model { get { return m_model; } }
 
     public bool m_isBusy { get { return m_busyCounter > 0; } }
 
@@ -63,5 +65,15 @@ public class BaseObject : MonoBehaviour {
         {
             transform.localEulerAngles = localRotation;
         }
+    }
+
+    public void Shake(float magnitude, float duration)
+    {
+        Vector3 shakeDir = UnityEngine.Random.onUnitSphere;
+        shakeDir.y = 0.0f;
+        shakeDir.Normalize();
+        IncrementBusyCounter();
+        m_model.localPosition = Vector3.zero;
+        m_model.DOShakePosition(duration, shakeDir * magnitude, 20).OnComplete(DecrementBusyCounter);
     }
 }

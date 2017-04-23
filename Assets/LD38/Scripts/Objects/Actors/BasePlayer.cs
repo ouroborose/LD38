@@ -29,6 +29,11 @@ public class BasePlayer : BaseActor
         m_numKeys++;
     }
 
+    public void RemoveKey()
+    {
+        m_numKeys--;
+    }
+
     protected override int CalculateAttackDamage()
     {
         return base.CalculateAttackDamage() + m_attackBonus;
