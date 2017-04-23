@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 
 public class World : MonoBehaviour {
+    public const float WORLD_POPULATION_STEP_TIME = 0.5f;
 
     [SerializeField] private float m_rotationTime = 0.5f;
 
@@ -13,16 +14,16 @@ public class World : MonoBehaviour {
 
     public BiomeData[] m_biomes;
 
-    protected BiomeData m_currentBiomeData;
+    public BiomeData m_currentBiomeData { get; protected set; }
 
     public bool m_isBusy { get; private set; }
-    public bool m_anySideFlipping
+    public bool m_anySideBusy
     {
         get
         {
             for(int i = 0; i < m_sides.Length; ++i)
             {
-                if(m_sides[i].m_isAnimating)
+                if(m_sides[i].m_isBusy)
                 {
                     return true;
                 }
@@ -86,7 +87,7 @@ public class World : MonoBehaviour {
                     break;
             }
 
-            yield return new WaitForSeconds(WorldSide.FLIP_MOVE_TIME);
+            yield return new WaitForSeconds(WORLD_POPULATION_STEP_TIME);
             tileIndex++;
         }
         m_isBusy = false;
@@ -101,9 +102,13 @@ public class World : MonoBehaviour {
 
         if(prefabs != null)
         {
-            GameObject obj = Instantiate(prefabs[UnityEngine.Random.Range(0, prefabs.Length)]) as GameObject;
-            BaseObject objScript = obj.GetComponent<BaseObject>();
-            objScript.SetTile(side.m_hiddenTile, true, new Vector3(0, 90 * UnityEngine.Random.Range(0, 4), 0));
+            GameObject prefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
+            if(prefab != null)
+            {
+                GameObject obj = Instantiate(prefab) as GameObject;
+                BaseObject objScript = obj.GetComponent<BaseObject>();
+                objScript.SetTile(side.m_hiddenTile, true, new Vector3(0, 90 * UnityEngine.Random.Range(0, 4), 0));
+            }
         }
 
         side.Flip();

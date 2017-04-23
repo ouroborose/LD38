@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class BasePlayer : BaseActor
 {
-    public int m_numKeys { get; private set; }
+    public int m_numKeys { get; protected set; }
+    public int m_maxHpBonus { get; protected set; }
+    public int m_attackBonus { get; protected set; }
+    
 
     protected override void Awake()
     {
@@ -17,6 +20,23 @@ public class BasePlayer : BaseActor
     {
         base.Reset();
         m_numKeys = 0;
+        m_attackBonus = 0;
+        m_maxHpBonus = 0;
+    }
+
+    public void AddKey()
+    {
+        m_numKeys++;
+    }
+
+    protected override int CalculateAttackDamage()
+    {
+        return base.CalculateAttackDamage() + m_attackBonus;
+    }
+
+    protected override int CalculateMaxHP()
+    {
+        return base.CalculateMaxHP() + m_maxHpBonus;
     }
 
     public override void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))
@@ -28,6 +48,7 @@ public class BasePlayer : BaseActor
             if (item != null)
             {
                 // pick up item
+                item.Collect(this);
             }
 
             BaseTrap trap = obj as BaseTrap;

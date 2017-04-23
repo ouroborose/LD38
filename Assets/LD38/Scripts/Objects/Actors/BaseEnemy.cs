@@ -9,10 +9,12 @@ public class BaseEnemy : BaseActor
 
     public override void TakeDamage(int amount, BaseObject damageSource)
     {
+        IncrementBusyCounter();
         base.TakeDamage(amount, damageSource);
 
         DOVirtual.DelayedCall(DAMAGE_TIME + DAMAGE_FEEDBACK_DELAY, () =>
         {
+            DecrementBusyCounter();
             if (m_currentHP > 0)
             {
                 if (Vector3.Dot(damageSource.transform.up, transform.forward) > 0.9f)
@@ -33,7 +35,7 @@ public class BaseEnemy : BaseActor
             else
             {
                 // spawn item on other side
-                m_tile.m_side.m_world.SpawnObject(m_tile.m_side);
+                m_tile.m_side.m_world.SpawnObject(m_tile.m_side, m_tile.m_side.m_world.m_currentBiomeData.m_enemyDropPrefabs);
             }
         });
     }

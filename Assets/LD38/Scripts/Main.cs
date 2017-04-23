@@ -33,7 +33,7 @@ public class Main : Singleton<Main> {
         m_player.SetTile(m_world.Sides[0].m_hiddenTile);
         m_world.Sides[0].m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
         m_world.Sides[0].Flip();
-        DOVirtual.DelayedCall(1.0f, () =>
+        DOVirtual.DelayedCall(World.WORLD_POPULATION_STEP_TIME, () =>
         {
             m_world.Populate(m_startingBiomeData);
         });
@@ -133,6 +133,6 @@ public class Main : Singleton<Main> {
 
     protected bool PlayerInputIsBlocked()
     {
-        return m_player.m_isAnimating | m_world.m_isBusy;
+        return m_player.m_isBusy | m_world.m_isBusy;
     }
 }

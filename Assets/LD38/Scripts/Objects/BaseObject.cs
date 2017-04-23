@@ -5,25 +5,34 @@ using UnityEngine;
 public class BaseObject : MonoBehaviour {
     [SerializeField] protected Transform m_model;
 
-    public bool m_isAnimating { get; protected set; }
+    public bool m_isBusy { get { return m_busyCounter > 0; } }
 
+    private int m_busyCounter = 0;
     protected Renderer[] m_renderers;
     protected BaseTile m_tile;
     
     protected virtual void Awake()
     {
-        m_isAnimating = false;
+        m_busyCounter = 0;
         m_renderers = GetComponentsInChildren<Renderer>();
     }
 
-    protected virtual void AnimationStarted()
+    protected virtual void OnDestroy()
     {
-        m_isAnimating = true;
+        if(m_tile != null)
+        {
+            DetachFromTile();
+        }
     }
 
-    protected virtual void AnimationEnded()
+    protected void IncrementBusyCounter()
     {
-        m_isAnimating = false;
+        m_busyCounter++;
+    }
+
+    protected void DecrementBusyCounter()
+    {
+        m_busyCounter--;
     }
 
     public virtual void SetColor(Color c)

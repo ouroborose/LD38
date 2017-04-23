@@ -44,7 +44,7 @@ public class BaseActor : BaseObject
             return;
         }
 
-        AnimationStarted();
+        IncrementBusyCounter();
         if(transform.parent != null)
         {
             worldDir = transform.parent.InverseTransformDirection(worldDir);
@@ -52,7 +52,7 @@ public class BaseActor : BaseObject
 
         transform.DOLocalRotate(Quaternion.LookRotation(worldDir, Vector3.up).eulerAngles, ROTATION_TIME).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            AnimationEnded();
+            DecrementBusyCounter();
             if (onComplete != null)
             {
                 onComplete();
@@ -62,10 +62,11 @@ public class BaseActor : BaseObject
 
     public virtual void Jump(TweenCallback onComplete = null)
     {
-        AnimationStarted();
+        IncrementBusyCounter();
+        m_model.localPosition = Vector3.zero;
         m_model.DOLocalMoveY(JUMP_HEIGHT, JUMP_TIME).SetLoops(2, LoopType.Yoyo).SetEase(Ease.OutCubic).OnComplete(() =>
         {
-            AnimationEnded();
+            DecrementBusyCounter();
             if (onComplete != null)
             {
                 onComplete();
@@ -75,16 +76,33 @@ public class BaseActor : BaseObject
 
     public virtual void Attack(BaseActor target)
     {
-        m_model.DOLocalMoveZ(ATTACK_MOVE_DIST, ATTACK_TIME).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack);
+        IncrementBusyCounter();
+        m_model.localPosition = Vector3.zero;
+        m_model.DOLocalMoveZ(ATTACK_MOVE_DIST, ATTACK_TIME).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack).OnComplete(DecrementBusyCounter);
         if(target != null)
         {
             target.TakeDamage(CalculateAttackDamage(), this);
         }
     }
 
-    protected int CalculateAttackDamage()
+    protected virtual int CalculateAttackDamage()
     {
         return m_baseAttack;
+    }
+
+    protected virtual int CalculateMaxHP()
+    {
+        return m_baseHP;
+    }
+
+    public virtual void Heal(int amount)
+    {
+        m_currentHP += amount;
+        int maxHP = CalculateMaxHP();
+        if (m_currentHP > maxHP)
+        {
+            m_currentHP = maxHP;
+        }
     }
 
     public virtual void TakeDamage(int amount, BaseObject damageSource)
@@ -94,10 +112,12 @@ public class BaseActor : BaseObject
         {
             m_currentHP = 0;
         }
-
+        
         Vector3 shakeDir = UnityEngine.Random.onUnitSphere;
         shakeDir.y = 0.0f;
         shakeDir.Normalize();
-        m_model.DOShakePosition(DAMAGE_TIME, shakeDir * DAMAGE_SHAKE_DIST, 20);
+        IncrementBusyCounter();
+        m_model.localPosition = Vector3.zero;
+        m_model.DOShakePosition(DAMAGE_TIME, shakeDir * DAMAGE_SHAKE_DIST, 20).OnComplete(DecrementBusyCounter);
     }
 }

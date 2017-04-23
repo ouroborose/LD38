@@ -43,13 +43,14 @@ public class WorldSide : BaseObject, IClickable {
 
     public void OnClick()
     {
-        if(m_isAnimating)
+        if(m_isBusy)
         {
             return;
         }
 
         BasePlayer player = Main.Instance.Player;
-        if (Vector3.Dot(player.transform.up, transform.up) > 0.9f)
+        float dot = Vector3.Dot(player.transform.up, transform.up);
+        if (dot > 0.9f || dot < -0.9f)
         {
             return;
         }
@@ -63,6 +64,11 @@ public class WorldSide : BaseObject, IClickable {
         for (int i = 0; i < m_showingTile.m_objs.Count; ++i)
         {
             BaseObject obj = m_showingTile.m_objs[i];
+            if(obj.m_isBusy)
+            {
+                return;
+            }
+
             BaseEnemy enemy = obj as BaseEnemy;
             if (enemy != null)
             {
@@ -84,12 +90,12 @@ public class WorldSide : BaseObject, IClickable {
 
     public void Flip()
     {
-        if(m_isAnimating)
+        if(m_isBusy)
         {
             return;
         }
 
-        AnimationStarted();
+        IncrementBusyCounter();
         m_flipSequence.Play();
     }
 
@@ -105,7 +111,7 @@ public class WorldSide : BaseObject, IClickable {
 
         m_flipSequence.Rewind();
 
-        AnimationEnded();
+        DecrementBusyCounter();
     }
 
     public bool Contains(BaseObject obj)
