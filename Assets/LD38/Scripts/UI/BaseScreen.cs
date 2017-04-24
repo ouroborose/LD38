@@ -9,7 +9,7 @@ public class BaseScreen : MonoBehaviour {
     [SerializeField] private RectTransform m_titleImage;
     [SerializeField] private TextMeshProUGUI m_playLabel;
     [SerializeField] private TextMeshProUGUI m_extraText;
-
+    
     protected bool m_startPressed = false;
 
     protected Sequence m_lastSequence;
@@ -50,7 +50,7 @@ public class BaseScreen : MonoBehaviour {
     {
         if (m_lastSequence != null)
         {
-            m_lastSequence.Kill();
+            m_lastSequence.Kill(true);
             m_lastSequence = null;
         }
 
@@ -93,6 +93,7 @@ public class BaseScreen : MonoBehaviour {
             return;
         }
 
+        AudioManager.Instance.PlayConfirm();
         m_startPressed = true;
         Hide();
     }

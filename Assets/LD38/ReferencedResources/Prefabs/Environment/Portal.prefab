@@ -166,6 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Portal
   m_model: {fileID: 4158140849133462}
+  m_collectSounds:
+  - {fileID: 8300000, guid: cd93c81394d70594ab9d778e74602946, type: 3}
 --- !u!114 &114900233445698748
 MonoBehaviour:
   m_ObjectHideFlags: 1
