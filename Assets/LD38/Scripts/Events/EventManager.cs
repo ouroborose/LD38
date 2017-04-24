@@ -20,4 +20,7 @@ public static class EventManager
 
     public static readonly EventCallBack OnLevelPopulationStarted = new EventCallBack();
     public static readonly EventCallBack OnLevelPopulationFinished = new EventCallBack();
+
+    public static readonly EventCallBack OnGameStart = new EventCallBack();
+    public static readonly EventCallBack OnGameOver = new EventCallBack();
 }

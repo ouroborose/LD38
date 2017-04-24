@@ -83,7 +83,8 @@ public class BasePlayer : BaseActor
             {
                 gameObject.SetActive(false);
                 DetachFromTile();
-                DOVirtual.DelayedCall(DAMAGE_TIME + POST_DAMAGE_FEEDBACK_DELAY, Main.Instance.StartGame);
+                Main.Instance.GameOver();
+                //DOVirtual.DelayedCall(DAMAGE_TIME + POST_DAMAGE_FEEDBACK_DELAY, Main.Instance.StartGame);
             });
         }
     }

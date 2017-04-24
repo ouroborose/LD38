@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class Main : Singleton<Main> {
+public class Main : Singleton<Main>
+{
+    public bool m_autoStart = false;
 
     [SerializeField] private CameraController m_camera;
 
@@ -27,6 +29,15 @@ public class Main : Singleton<Main> {
     private Vector3 m_mouseStartPos;
     private Vector3 m_lastMousePos;
     private bool m_cameraDragStarted = false;
+    
+    public enum GameState
+    {
+        Title,
+        GameStarted,
+        GameOver,
+    }
+
+    public GameState m_currentGameState = GameState.Title;
 
     protected override void Awake()
     {
@@ -38,7 +49,10 @@ public class Main : Singleton<Main> {
 
     protected void Start()
     {
-        StartGame();
+        if(m_autoStart)
+        {
+            StartGame();
+        }
     }
 
     public void StartGame()
@@ -56,8 +70,11 @@ public class Main : Singleton<Main> {
 
         DOVirtual.DelayedCall(World.WORLD_POPULATION_STEP_TIME, () =>
         {
+            m_currentGameState = GameState.GameStarted;
             m_world.Populate(m_startingBiomeData);
         });
+
+        EventManager.OnGameStart.Dispatch();
     }
 
     public void AdvanceToNextStage()
@@ -66,6 +83,12 @@ public class Main : Singleton<Main> {
         m_player.m_displayName = string.Format("World {0}", m_currentLevel);
         EventManager.OnObjectChanged.Dispatch(m_player);
         m_world.Populate(m_biomes[UnityEngine.Random.Range(0, m_biomes.Length)]);
+    }
+
+    public void GameOver()
+    {
+        m_currentGameState = GameState.GameOver;
+        EventManager.OnGameOver.Dispatch();
     }
 
     protected void Update()
@@ -169,6 +192,6 @@ public class Main : Singleton<Main> {
 
     protected bool PlayerInputIsBlocked()
     {
-        return m_player.m_isBusy | m_world.m_isBusy | m_player.m_currentHP <= 0;
+        return m_player.m_isBusy || m_world.m_isBusy || m_player.m_currentHP <= 0 || m_currentGameState == GameState.Title || m_currentGameState == GameState.GameOver;
     }
 }
