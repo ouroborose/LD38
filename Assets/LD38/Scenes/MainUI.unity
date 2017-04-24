@@ -219,13 +219,14 @@ Prefab:
         type: 2}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0,
+      objectReference: {fileID: 11400000, guid: 75e95ff1fea58d6409f9be830d330f5e,
         type: 2}
     - target: {fileID: 114966779507850362, guid: a2b75e8f6cdd5c142b3d3053e3bbdbdd,
         type: 2}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
+      objectReference: {fileID: 21515217851716208, guid: 75e95ff1fea58d6409f9be830d330f5e,
+        type: 2}
     - target: {fileID: 114966779507850362, guid: a2b75e8f6cdd5c142b3d3053e3bbdbdd,
         type: 2}
       propertyPath: m_fontStyle
@@ -345,13 +346,14 @@ Prefab:
         type: 2}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0,
+      objectReference: {fileID: 11400000, guid: 75e95ff1fea58d6409f9be830d330f5e,
         type: 2}
     - target: {fileID: 114040748081811570, guid: 91bb480668767584e8986544b9ea25ef,
         type: 2}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
+      objectReference: {fileID: 21515217851716208, guid: 75e95ff1fea58d6409f9be830d330f5e,
+        type: 2}
     - target: {fileID: 114040748081811570, guid: 91bb480668767584e8986544b9ea25ef,
         type: 2}
       propertyPath: m_fontStyle
@@ -511,12 +513,13 @@ Prefab:
         type: 2}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
+      objectReference: {fileID: 21515217851716208, guid: 75e95ff1fea58d6409f9be830d330f5e,
+        type: 2}
     - target: {fileID: 114455985013079820, guid: b90891c82bc73df4786b1bfbb86f3c9c,
         type: 2}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0,
+      objectReference: {fileID: 11400000, guid: 75e95ff1fea58d6409f9be830d330f5e,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b90891c82bc73df4786b1bfbb86f3c9c, type: 2}
