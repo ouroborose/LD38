@@ -17,6 +17,8 @@ public class BaseActor : BaseObject
     protected const float JUMP_HEIGHT = 0.5f;
     protected const float JUMP_TIME = 0.25f;
 
+    [SerializeField] protected string m_deathText = "Dead";
+
     [SerializeField] protected int m_baseHP = 1;
     public int m_currentHP { get; protected set; }
 
@@ -102,6 +104,8 @@ public class BaseActor : BaseObject
 
     public virtual void Heal(int amount)
     {
+        ShowPositivePopText(string.Format("+{0} hp", amount));
+
         m_currentHP += amount;
         int maxHP = CalculateMaxHP();
         if (m_currentHP > maxHP)
@@ -113,10 +117,16 @@ public class BaseActor : BaseObject
 
     public virtual void TakeDamage(int amount, BaseObject damageSource = null)
     {
+
         m_currentHP -= amount;
-        if(m_currentHP < 0)
+        if(m_currentHP <= 0)
         {
+            ShowNegativePopText(m_deathText);
             m_currentHP = 0;
+        }
+        else
+        {
+            ShowNegativePopText(string.Format("-{0} hp", amount));
         }
 
         Shake(DAMAGE_SHAKE_DIST, DAMAGE_TIME);
@@ -127,4 +137,6 @@ public class BaseActor : BaseObject
     {
         return base.CreateInfoText() + string.Format("\nHp: {0}/{1}\nAtk: {2}", m_currentHP, CalculateMaxHP(), CalculateAttackDamage());
     }
+
+    
 }

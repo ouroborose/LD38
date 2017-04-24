@@ -1072,6 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Chest
   m_model: {fileID: 4190183099230226}
+  m_deathText: Broken
   m_baseHP: 3
   m_baseAttack: 0
   m_itemSpawnPos: {fileID: 4002772316806214}

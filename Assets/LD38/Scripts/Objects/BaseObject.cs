@@ -89,4 +89,26 @@ public class BaseObject : MonoBehaviour {
     {
         EventManager.OnObjectChanged.Dispatch(this);
     }
+
+    public void ShowPositivePopText(string text)
+    {
+        ShowPopText(text, Color.green, Vector3.up);
+    }
+
+    public void ShowNeutralPopText(string text)
+    {
+        ShowPopText(text, Color.white, Vector3.up);
+    }
+
+    public void ShowNegativePopText(string text)
+    {
+        Vector3 dir = new Vector3(Random.Range(-0.5f, 0.5f), 1.0f, 0);
+        dir.Normalize();
+        ShowPopText(text, Color.red, dir);
+    }
+
+    public void ShowPopText(string text, Color color, Vector3 dir, float offset = 0.75f)
+    {
+        PopTextManager.Instance.Show(text, transform.position + transform.up * offset, dir * 4, color, 2.0f);
+    }
 }

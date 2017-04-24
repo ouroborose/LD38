@@ -31,6 +31,8 @@ public class Main : Singleton<Main> {
     protected override void Awake()
     {
         base.Awake();
+
+        Input.simulateMouseWithTouches = true;
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
@@ -68,7 +70,9 @@ public class Main : Singleton<Main> {
 
     protected void Update()
     {
+#if UNITY_EDITOR
         UpdateDebugControls();
+#endif
         UpdatePlayerControls();
     }
     
@@ -84,7 +88,15 @@ public class Main : Singleton<Main> {
             m_player.TakeDamage(m_player.CalculateMaxHP());
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Vector3 dir = new Vector3(Random.Range(-0.75f,0.75f), 1.0f, 0);
+            dir.Normalize();
+            PopTextManager.Instance.Show("Test", m_player.transform.position + Vector3.up, dir * 5, Color.white);
+        }
+
+
+            if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
@@ -157,6 +169,6 @@ public class Main : Singleton<Main> {
 
     protected bool PlayerInputIsBlocked()
     {
-        return m_player.m_isBusy | m_world.m_isBusy;
+        return m_player.m_isBusy | m_world.m_isBusy | m_player.m_currentHP <= 0;
     }
 }
