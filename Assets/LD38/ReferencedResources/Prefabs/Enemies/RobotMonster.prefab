@@ -153,8 +153,8 @@ MonoBehaviour:
   m_displayName: 
   m_model: {fileID: 4381572922313830}
   m_deathText: Dead
-  m_baseHP: 1
-  m_baseAttack: 1
+  m_baseHP: 3
+  m_baseAttack: 2
   m_jumpSound: []
   m_damageSound:
   - {fileID: 8300000, guid: 722ef6d1c288beb4d8e32dde4c484f81, type: 3}

@@ -37,7 +37,7 @@ MonoBehaviour:
   - {fileID: 1408217766131434, guid: f789677b4a7389445bfb2685a4b6268e, type: 2}
   - {fileID: 1408217766131434, guid: f789677b4a7389445bfb2685a4b6268e, type: 2}
   - {fileID: 1757810940093056, guid: d93d9e1e48e5d3648a28e4b6867754c8, type: 2}
-  - {fileID: 1408217766131434, guid: f789677b4a7389445bfb2685a4b6268e, type: 2}
+  - {fileID: 1812985987205982, guid: a1493ae376f9c8645bca2747a2f847e4, type: 2}
   m_chestPrefabs:
   - {fileID: 1948541252077624, guid: bb46bae3aced77348b380be998b28fc7, type: 2}
   m_trapPrefabs:

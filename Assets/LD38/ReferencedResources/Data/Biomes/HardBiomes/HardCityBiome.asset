@@ -34,8 +34,8 @@ MonoBehaviour:
   - {fileID: 1137962990583262, guid: 606d3edaab1cde2419ee7e51e8e520c2, type: 2}
   - {fileID: 1137962990583262, guid: 606d3edaab1cde2419ee7e51e8e520c2, type: 2}
   m_enemyPrefabs:
-  - {fileID: 1549993014401138, guid: 3d4f5b05c346568439460b98555d672c, type: 2}
-  - {fileID: 1549993014401138, guid: 3d4f5b05c346568439460b98555d672c, type: 2}
+  - {fileID: 1812985987205982, guid: a1493ae376f9c8645bca2747a2f847e4, type: 2}
+  - {fileID: 1812985987205982, guid: a1493ae376f9c8645bca2747a2f847e4, type: 2}
   - {fileID: 1408217766131434, guid: f789677b4a7389445bfb2685a4b6268e, type: 2}
   - {fileID: 1549993014401138, guid: 3d4f5b05c346568439460b98555d672c, type: 2}
   m_chestPrefabs:
