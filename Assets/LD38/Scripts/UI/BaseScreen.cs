@@ -37,7 +37,7 @@ public class BaseScreen : MonoBehaviour {
         }
 
         m_lastSequence = DOTween.Sequence()
-            .Append(DOTween.To(() => m_titleImage.anchorMin, (x) => m_titleImage.anchorMin = x, Vector2.zero, 1.5f).SetEase(Ease.OutSine))
+            .Append(DOTween.To(() => m_titleImage.anchorMin, (x) => m_titleImage.anchorMin = x, Vector2.zero, 1.5f).SetEase(Ease.InOutSine))
             .Append(DOTween.To(() => m_playLabel.alpha, (x) => m_playLabel.alpha = x, 1.0f, 1.0f));
 
         if (m_extraText != null)
