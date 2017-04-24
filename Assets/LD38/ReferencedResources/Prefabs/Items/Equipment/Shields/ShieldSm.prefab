@@ -158,4 +158,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1d5a8084a7a0e8647ab4d8c18fe37273, type: 3}
   m_equipmentSlot: 2
   m_atkBonus: 0
-  m_hpBonus: 2
+  m_hpBonus: 3
