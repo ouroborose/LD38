@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4276065920330208
 Transform:
   m_ObjectHideFlags: 1
@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: 
   m_model: {fileID: 4298238008768544}
+  m_deathText: Game Over
   m_baseHP: 5
   m_baseAttack: 1
   m_equipmentSlots:

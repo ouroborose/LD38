@@ -53,6 +53,14 @@ public class BasePlayer : BaseActor
 
     public void Equip(BaseEquipment equipment)
     {
+        if(equipment.m_atkBonus > 0)
+        {
+            ShowNeutralPopText(string.Format("+{0} atk", equipment.m_atkBonus));
+        }
+        if (equipment.m_hpBonus > 0)
+        {
+            ShowNeutralPopText(string.Format("+{0} max hp", equipment.m_hpBonus));
+        }
         m_atkBonus += equipment.m_atkBonus;
         m_maxHpBonus += equipment.m_hpBonus;
         m_currentHP += equipment.m_hpBonus;

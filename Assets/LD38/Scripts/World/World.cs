@@ -149,7 +149,10 @@ public class World : MonoBehaviour {
         player.Jump(() =>
         {
             player.SetTile(side.m_showingTile, false);
-            HandlePortalSpawning();
+            if(BaseEnemy.s_allEnemies.Count <= 0)
+            {
+                TryToSpawnPortalSpawning();
+            }
             EventManager.OnWorldRotationFinished.Dispatch();
         });
     }
@@ -184,9 +187,9 @@ public class World : MonoBehaviour {
         return null;
     }
 
-    private void HandlePortalSpawning()
+    public void TryToSpawnPortalSpawning()
     {
-        if (m_portal != null || BaseEnemy.s_allEnemies.Count > 0)
+        if (m_portal != null)
         {
             return;
         }

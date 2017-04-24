@@ -65,6 +65,10 @@ public class BaseEnemy : BaseActor
                     Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
                 }
                 
+                if(s_allEnemies.Count <= 1)
+                {
+                    Main.Instance.World.TryToSpawnPortalSpawning();
+                }
             }
         });
     }
