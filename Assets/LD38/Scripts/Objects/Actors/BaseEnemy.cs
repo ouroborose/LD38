@@ -62,7 +62,7 @@ public class BaseEnemy : BaseActor
                 }
                 else
                 {
-                    Main.Instance.World.SpawnRandomPrefab(m_tile.m_side, Main.Instance.World.m_currentBiomeData.m_enemyDropPrefabs);
+                    Main.Instance.World.SpawnObject(m_tile.m_side, Main.Instance.GetCurrentBiomeGroup().m_enemyDrops.GetNextDrop());
                 }
                 
                 if(s_allEnemies.Count <= 1)

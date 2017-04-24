@@ -126,3 +126,12 @@ MonoBehaviour:
   m_deathText: Dead
   m_baseHP: 3
   m_baseAttack: 2
+  m_jumpSound: []
+  m_damageSound:
+  - {fileID: 8300000, guid: 722ef6d1c288beb4d8e32dde4c484f81, type: 3}
+  - {fileID: 8300000, guid: b26260bf1aa18dc438e131a5315169d9, type: 3}
+  - {fileID: 8300000, guid: fd4ae415f1fc5ff41817f463ee42462e, type: 3}
+  m_deathSounds:
+  - {fileID: 8300000, guid: f21fcae07f2907249943362dc5822023, type: 3}
+  - {fileID: 8300000, guid: acd03212f5adcaa4f8c516f733c2a784, type: 3}
+  - {fileID: 8300000, guid: d705abeaecd515c4f831a5a4d4fbb118, type: 3}

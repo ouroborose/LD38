@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca9faeb83279c44e92e0c2d1bc82681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_autoStart: 0
   m_camera: {fileID: 0}
   m_player: {fileID: 0}
   m_world: {fileID: 0}
@@ -58,10 +59,10 @@ MonoBehaviour:
     type: 2}
   m_startingBiomeData: {fileID: 11400000, guid: 85595909c73412941b786635b9853d15,
     type: 2}
-  m_biomes:
-  - {fileID: 11400000, guid: 414ae7f392396334db6ee44aa1c6fb7f, type: 2}
-  - {fileID: 11400000, guid: 90b7ed2190bf5a14b9ba955ceef008f0, type: 2}
-  - {fileID: 11400000, guid: fe3933e1010ad4f4d88c16b98b730dc2, type: 2}
-  - {fileID: 11400000, guid: 7911a70495633cb40bf661612439de0c, type: 2}
-  - {fileID: 11400000, guid: 5cb1558928545da4badd0b8221561ef1, type: 2}
+  m_biomeGroupLevelSeparation: 10
+  m_biomeGroups:
+  - {fileID: 11400000, guid: acfa54676022f164ab84adfeb4c06696, type: 2}
+  - {fileID: 11400000, guid: c08513480a614244481685c070068eee, type: 2}
+  - {fileID: 11400000, guid: a6b2ccc5c5fb1f84fb874da9cac6c4d6, type: 2}
   m_mouseDragThreshold: 20
+  m_currentGameState: 0

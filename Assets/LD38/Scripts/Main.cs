@@ -20,7 +20,9 @@ public class Main : Singleton<Main>
     public GameObject m_keyPrefab;
 
     [SerializeField] private BiomeData m_startingBiomeData;
-    [SerializeField] private BiomeData[] m_biomes;
+    [SerializeField] private int m_biomeGroupLevelSeparation = 10;
+    [SerializeField] private BiomeGroupData[] m_biomeGroups;
+
 
     public int m_currentLevel { get; protected set; }
 
@@ -78,12 +80,18 @@ public class Main : Singleton<Main>
         EventManager.OnGameStart.Dispatch();
     }
 
+    public BiomeGroupData GetCurrentBiomeGroup()
+    {
+        return m_biomeGroups[Mathf.Min(m_currentLevel/m_biomeGroupLevelSeparation, m_biomeGroups.Length-1)];
+    }
+
     public void AdvanceToNextStage()
     {
         m_currentLevel++;
         m_player.m_displayName = string.Format("World {0}", m_currentLevel);
         EventManager.OnObjectChanged.Dispatch(m_player);
-        m_world.Populate(m_biomes[UnityEngine.Random.Range(0, m_biomes.Length)]);
+        BiomeGroupData currentGroup = GetCurrentBiomeGroup();
+        m_world.Populate(currentGroup.m_biomes[UnityEngine.Random.Range(0, currentGroup. m_biomes.Length)]);
     }
 
     public void GameOver()

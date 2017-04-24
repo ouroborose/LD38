@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640171922556928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.813, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4414779334628812}
@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299094111655822}
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: -0.109375, y: 0.3870968, z: 0}
+  m_LocalPosition: {x: -0.109375, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4414779334628812}
@@ -152,7 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Sword
   m_model: {fileID: 4414779334628812}
-  m_collectSounds: []
+  m_collectSounds:
+  - {fileID: 8300000, guid: b897dea678ff71942a31047257620d67, type: 3}
+  - {fileID: 8300000, guid: b571721ca517b2d4f90885fff38b31da, type: 3}
+  - {fileID: 8300000, guid: 5994aaf43dd1c144abb174364e7e6c46, type: 3}
   m_equipmentSlot: 1
   m_atkBonus: 1
   m_hpBonus: 0

@@ -152,7 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Sword
   m_model: {fileID: 4862119004334934}
-  m_collectSounds: []
+  m_collectSounds:
+  - {fileID: 8300000, guid: b897dea678ff71942a31047257620d67, type: 3}
+  - {fileID: 8300000, guid: b571721ca517b2d4f90885fff38b31da, type: 3}
+  - {fileID: 8300000, guid: 5994aaf43dd1c144abb174364e7e6c46, type: 3}
   m_equipmentSlot: 1
-  m_atkBonus: 3
+  m_atkBonus: 10
   m_hpBonus: 0

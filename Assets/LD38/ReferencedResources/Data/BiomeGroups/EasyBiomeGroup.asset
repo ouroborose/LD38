@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635acb8282ed40b41b6eb4d9de6bdd1e, type: 3}
+  m_Name: EasyBiomeGroup
+  m_EditorClassIdentifier: 
+  m_biomes:
+  - {fileID: 11400000, guid: fe3933e1010ad4f4d88c16b98b730dc2, type: 2}
+  - {fileID: 11400000, guid: fe3933e1010ad4f4d88c16b98b730dc2, type: 2}
+  - {fileID: 11400000, guid: fe3933e1010ad4f4d88c16b98b730dc2, type: 2}
+  - {fileID: 11400000, guid: 7911a70495633cb40bf661612439de0c, type: 2}
+  - {fileID: 11400000, guid: 7911a70495633cb40bf661612439de0c, type: 2}
+  m_enemyDrops:
+    m_drops:
+    - m_prefab: {fileID: 0}
+      m_probabilityWeight: 2
+    - m_prefab: {fileID: 1802170298995824, guid: c5f0bcacb3cb2fe4690eb84575672205,
+        type: 2}
+      m_probabilityWeight: 2
+    - m_prefab: {fileID: 1943132903493510, guid: 10f52e8775b4a9346b49049c4c32485e,
+        type: 2}
+      m_probabilityWeight: 1.5
+  m_chestDrops:
+    m_drops:
+    - m_prefab: {fileID: 1802170298995824, guid: c5f0bcacb3cb2fe4690eb84575672205,
+        type: 2}
+      m_probabilityWeight: 0.5
+    - m_prefab: {fileID: 1640171922556928, guid: 36ef567bc383be841b16f742df546f11,
+        type: 2}
+      m_probabilityWeight: 1
+    - m_prefab: {fileID: 1604498593904962, guid: 8dedf939b6ccba74c8d288415147be41,
+        type: 2}
+      m_probabilityWeight: 1

@@ -63,19 +63,15 @@ public class BaseChest : BaseActor {
             DOVirtual.DelayedCall(1.0f, () =>
             {
                 DetachFromTile();
-                BiomeData data = Main.Instance.World.m_currentBiomeData;
-                if (data.m_chestDropPrefabs.Length > 0)
+                GameObject prefab = Main.Instance.GetCurrentBiomeGroup().m_chestDrops.GetNextDrop();
+                if (prefab != null)
                 {
-                    GameObject prefab = data.m_chestDropPrefabs[UnityEngine.Random.Range(0, data.m_chestDropPrefabs.Length)];
-                    if (prefab != null)
-                    {
-                        GameObject dropObj = Instantiate(prefab);
-                        BaseItem item = dropObj.GetComponent<BaseItem>();
-                        item.SetTile(m_tile);
-                        item.Model.position = m_itemSpawnPos.position;
-                        item.Model.rotation = transform.rotation;
-                        EventManager.OnItemSpawned.Dispatch(item);
-                    }
+                    GameObject dropObj = Instantiate(prefab);
+                    BaseItem item = dropObj.GetComponent<BaseItem>();
+                    item.SetTile(m_tile);
+                    item.Model.position = m_itemSpawnPos.position;
+                    item.Model.rotation = transform.rotation;
+                    EventManager.OnItemSpawned.Dispatch(item);
                 }
                 Destroy(gameObject, 0.5f);
             });

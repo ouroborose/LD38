@@ -62,6 +62,4 @@ public class BiomeData : ScriptableObject {
     public GameObject[] m_enemyPrefabs;
     public GameObject[] m_chestPrefabs;
     public GameObject[] m_trapPrefabs;
-    public GameObject[] m_enemyDropPrefabs;
-    public GameObject[] m_chestDropPrefabs;
 }
