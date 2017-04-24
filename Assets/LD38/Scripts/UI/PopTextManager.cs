@@ -26,13 +26,18 @@ public class PopTextManager : Singleton<PopTextManager> {
             popText = popTextObj.GetComponent<PopText>();
             m_pool.Add(popText);
         }
-
+        
         popText.transform.rotation = Camera.main.transform.rotation;
         return popText;
     }
 
     public PopText Show(string text, Vector3 worldPosStart, Vector3 dir, Color color, float lifeTime = 1.5f, bool applyGravity = true)
     {
+        if(string.IsNullOrEmpty(text))
+        {
+            return null;
+        }
+
         PopText popText = GetAvailablePopText();
         popText.Show(text, color, worldPosStart, dir, lifeTime, applyGravity);
         return popText;

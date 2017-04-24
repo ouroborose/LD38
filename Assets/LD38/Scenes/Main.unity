@@ -420,7 +420,7 @@ Prefab:
     - target: {fileID: 20879270655364584, guid: 5a3193c15641ccc48ad8bd199f9cb984,
         type: 2}
       propertyPath: orthographic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4131567128881816, guid: 5a3193c15641ccc48ad8bd199f9cb984, type: 2}
       propertyPath: m_LocalRotation.x

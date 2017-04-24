@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: 
   m_model: {fileID: 4298238008768544}
-  m_deathText: Game Over
+  m_deathText: 
   m_baseHP: 5
   m_baseAttack: 1
   m_equipmentSlots:
