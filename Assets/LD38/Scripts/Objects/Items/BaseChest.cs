@@ -50,6 +50,7 @@ public class BaseChest : BaseActor {
 
             DOVirtual.DelayedCall(1.0f, () =>
             {
+                DetachFromTile();
                 BiomeData data = Main.Instance.World.m_currentBiomeData;
                 if (data.m_chestDropPrefabs.Length > 0)
                 {
