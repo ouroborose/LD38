@@ -15,6 +15,9 @@ public class World : MonoBehaviour {
     public BiomeData m_currentBiomeData { get; protected set; }
     private BasePortal m_portal;
 
+    [SerializeField] private AudioClip[] m_flipStartSound;
+    [SerializeField] private AudioClip[] m_flipFinishSound;
+
     public bool m_isBusy { get; private set; }
     public bool m_anySideBusy
     {
@@ -50,6 +53,16 @@ public class World : MonoBehaviour {
                 m_sides[i].Flip();
             }
         }
+    }
+
+    public void PlayFlipStartSound()
+    {
+        AudioManager.Instance.PlayOneShot(m_flipStartSound);
+    }
+
+    public void PlayFlipFinishSound()
+    {
+        AudioManager.Instance.PlayOneShot(m_flipFinishSound);
     }
 
     public void Populate(BiomeData data)

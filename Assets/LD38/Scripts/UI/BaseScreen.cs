@@ -6,6 +6,7 @@ using TMPro;
 
 public class BaseScreen : MonoBehaviour {
 
+    public const float AUTO_ROTATE_SPEED = 30.0f;
     [SerializeField] private RectTransform m_titleImage;
     [SerializeField] private TextMeshProUGUI m_playLabel;
     [SerializeField] private TextMeshProUGUI m_extraText;
@@ -18,6 +19,7 @@ public class BaseScreen : MonoBehaviour {
     {
         gameObject.SetActive(true);
         m_startPressed = false;
+        Main.Instance.CameraController.StartRotation();
         if (instant)
         {
             m_playLabel.alpha = 1.0f;
@@ -46,6 +48,11 @@ public class BaseScreen : MonoBehaviour {
         }
     }
 
+    public void Update()
+    {
+        Main.Instance.CameraController.RotateCamera(Vector3.right * AUTO_ROTATE_SPEED * Time.deltaTime);
+    }
+
     public virtual void Hide(bool instant = false)
     {
         if (m_lastSequence != null)
@@ -53,7 +60,6 @@ public class BaseScreen : MonoBehaviour {
             m_lastSequence.Kill(true);
             m_lastSequence = null;
         }
-
         if(instant)
         {
             gameObject.SetActive(false);
@@ -63,27 +69,36 @@ public class BaseScreen : MonoBehaviour {
             {
                 m_extraText.alpha = 0.0f;
             }
+
+            if(m_startPressed)
+            {
+                Main.Instance.CameraController.FinishRotation();
+                Main.Instance.StartGame();
+            }
+            
             return;
         }
 
-        m_lastSequence = DOTween.Sequence().Append(DOTween.To(() => m_playLabel.alpha, (x) => m_playLabel.alpha = x, 0.0f, 0.5f));
+        m_lastSequence = DOTween.Sequence();
 
         if (m_extraText != null)
         {
             m_lastSequence.Append(DOTween.To(() => m_extraText.alpha, (x) => m_extraText.alpha = x, 0.0f, 1.0f));
         }
 
-        m_lastSequence.Append(DOTween.To(() => m_titleImage.anchorMin, (x) => m_titleImage.anchorMin = x, Vector2.up, 0.5f).SetEase(Ease.InBack))
+        m_lastSequence
+            .Append(DOTween.To(() => m_playLabel.alpha, (x) => m_playLabel.alpha = x, 0.0f, 0.5f))
+            .Append(DOTween.To(() => m_titleImage.anchorMin, (x) => m_titleImage.anchorMin = x, Vector2.up, 0.5f).SetEase(Ease.InBack))
             .AppendCallback(()=>
             {
                 gameObject.SetActive(false);
-                Main.Instance.StartGame();
-            });
 
-        if (m_extraText != null)
-        {
-            m_lastSequence.Append(DOTween.To(() => m_extraText.alpha, (x) => m_extraText.alpha = x, 1.0f, 1.0f));
-        }
+                if (m_startPressed)
+                {
+                    Main.Instance.CameraController.FinishRotation();
+                    Main.Instance.StartGame();
+                }
+            });
     }
 
     public void OnStartPressed()

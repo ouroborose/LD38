@@ -24,6 +24,10 @@ public class BaseActor : BaseObject
 
     [SerializeField] protected int m_baseAttack = 1;
 
+    [SerializeField] protected AudioClip[] m_jumpSound;
+    [SerializeField] protected AudioClip[] m_damageSound;
+    [SerializeField] protected AudioClip[] m_deathSounds;
+
     public int m_maxHpBonus { get; protected set; }
     public int m_atkBonus { get; protected set; }
 
@@ -70,6 +74,7 @@ public class BaseActor : BaseObject
     public virtual void Jump(TweenCallback onComplete = null)
     {
         IncrementBusyCounter();
+        AudioManager.Instance.PlayOneShot(m_jumpSound);
         m_model.localPosition = Vector3.zero;
         m_model.DOLocalMoveY(JUMP_HEIGHT, JUMP_TIME).SetLoops(2, LoopType.Yoyo).SetEase(Ease.OutCubic).OnComplete(() =>
         {
@@ -84,6 +89,7 @@ public class BaseActor : BaseObject
     public virtual void Attack(BaseActor target = null)
     {
         IncrementBusyCounter();
+
         m_model.localPosition = Vector3.zero;
         m_model.DOLocalMoveZ(ATTACK_MOVE_DIST, ATTACK_TIME).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack).OnComplete(DecrementBusyCounter);
         if(target != null)
@@ -117,15 +123,16 @@ public class BaseActor : BaseObject
 
     public virtual void TakeDamage(int amount, BaseObject damageSource = null)
     {
-
         m_currentHP -= amount;
         if(m_currentHP <= 0)
         {
+            AudioManager.Instance.PlayOneShot(m_deathSounds);
             ShowNegativePopText(m_deathText);
             m_currentHP = 0;
         }
         else
         {
+            AudioManager.Instance.PlayOneShot(m_damageSound);
             ShowNegativePopText(string.Format("-{0} hp", amount));
         }
 

@@ -10,6 +10,10 @@ public class BaseChest : BaseActor {
     [SerializeField] private Transform m_keyPivot;
     [SerializeField] private Transform[] m_sides;
 
+    [SerializeField] private AudioClip[] m_keyAppearSound;
+    [SerializeField] private AudioClip[] m_keyTurnSound;
+    [SerializeField] private AudioClip[] m_chestOpenSound;
+
     protected override void Awake()
     {
         m_keyPivot.gameObject.SetActive(false);
@@ -36,9 +40,17 @@ public class BaseChest : BaseActor {
             IncrementBusyCounter();
             m_keyPivot.gameObject.SetActive(true);
 
-
-            m_keyPivot.DOLocalMoveY(0.0f, 0.25f).SetDelay(0.25f).SetEase(Ease.InOutBack);
+            AudioManager.Instance.PlayOneShot(m_keyAppearSound);
+            m_keyPivot.DOLocalMoveY(0.0f, 0.25f).SetDelay(0.25f).SetEase(Ease.InOutBack).OnComplete(()=>
+            {
+                AudioManager.Instance.PlayOneShot(m_keyTurnSound);
+            });
             m_keyPivot.DOLocalRotate(new Vector3(0.0f, 90.0f, 0.0f), 0.25f, RotateMode.LocalAxisAdd).SetDelay(0.5f).SetEase(Ease.InOutBack);
+
+            DOVirtual.DelayedCall(0.8f, () =>
+            {
+                AudioManager.Instance.PlayOneShot(m_chestOpenSound);
+            });
 
             for (int i = 0; i < m_sides.Length; ++i)
             {

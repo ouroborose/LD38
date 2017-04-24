@@ -91,6 +91,7 @@ public class WorldSide : BaseObject, IClickable {
             return;
         }
 
+        m_world.PlayFlipStartSound();
         EventManager.OnSideFlipStarted.Dispatch(this);
         IncrementBusyCounter();
         m_flipSequence.Play();
@@ -98,6 +99,7 @@ public class WorldSide : BaseObject, IClickable {
 
     protected void OnFlipComplete()
     {
+        m_world.PlayFlipFinishSound();
         // stupid hack to get the facing right
         Vector3 tempEuler = m_hiddenTile.transform.localEulerAngles;
         m_hiddenTile.transform.localEulerAngles = m_showingTile.transform.localEulerAngles;

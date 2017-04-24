@@ -9,6 +9,7 @@ public class Main : Singleton<Main>
     public bool m_autoStart = false;
 
     [SerializeField] private CameraController m_camera;
+    public CameraController CameraController { get { return m_camera; } }
 
     [SerializeField] private BasePlayer m_player;
     public BasePlayer Player { get { return m_player; } }
@@ -117,9 +118,14 @@ public class Main : Singleton<Main>
             dir.Normalize();
             PopTextManager.Instance.Show("Test", m_player.transform.position + Vector3.up, dir * 5, Color.white);
         }
+        
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            m_player.Heal(m_player.CalculateMaxHP());
+            m_player.AddKey();
+        }
 
-
-            if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
@@ -135,6 +141,11 @@ public class Main : Singleton<Main>
 
     protected void UpdatePlayerControls()
     {
+
+        if(m_currentGameState != GameState.GameStarted)
+        {
+            return;
+        }
 
         if(Input.GetMouseButtonDown(0))
         {

@@ -152,3 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Potion
   m_model: {fileID: 4902249000021744}
+  m_collectSounds:
+  - {fileID: 8300000, guid: 147868736a1e3b54b95ce9c6f3c73626, type: 3}
+  - {fileID: 8300000, guid: 0c5fc77fbb196c54ebf1363feced2718, type: 3}
+  - {fileID: 8300000, guid: 085a4edc164873c429930d8123826d96, type: 3}
+  m_healPercent: 0.2

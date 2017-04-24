@@ -1075,6 +1075,13 @@ MonoBehaviour:
   m_deathText: Broken
   m_baseHP: 3
   m_baseAttack: 0
+  m_jumpSound: []
+  m_damageSound:
+  - {fileID: 8300000, guid: f6dbfb2d5f40a954cbb8bcf3f19cdb69, type: 3}
+  - {fileID: 8300000, guid: 10ba0d9889a1f5f4f87956dbd62bf5d5, type: 3}
+  - {fileID: 8300000, guid: 7db2064596cad164ca928ef16958072c, type: 3}
+  m_deathSounds:
+  - {fileID: 8300000, guid: cb16ca372c295df45b6b310214e1bc0b, type: 3}
   m_itemSpawnPos: {fileID: 4002772316806214}
   m_keyPivot: {fileID: 4518239878528882}
   m_sides:
@@ -1084,3 +1091,13 @@ MonoBehaviour:
   - {fileID: 4683268968448704}
   - {fileID: 4300552106714112}
   - {fileID: 4667900162228124}
+  m_keyAppearSound:
+  - {fileID: 8300000, guid: 37f305ec296c8f647b20fbc6ccc38a86, type: 3}
+  - {fileID: 8300000, guid: d8d1d7478775f4544a75cde03e17b93f, type: 3}
+  - {fileID: 8300000, guid: 389e74723369d3d47b0b2f0fab7cc890, type: 3}
+  m_keyTurnSound:
+  - {fileID: 8300000, guid: b4b8929b3d4efbf4887e8166329b1925, type: 3}
+  m_chestOpenSound:
+  - {fileID: 8300000, guid: 703b428c0c9201c4ca43510a13b07e94, type: 3}
+  - {fileID: 8300000, guid: 53aa6de55a4cb654c8547e37e9169d98, type: 3}
+  - {fileID: 8300000, guid: be3bacd28d4d5c3468fc8057235ea2c5, type: 3}
