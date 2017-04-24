@@ -171,6 +171,19 @@ public class World : MonoBehaviour {
         return null;
     }
 
+    
+    public WorldSide GetTopSide()
+    {
+        for (int i = 0; i < m_sides.Length; ++i)
+        {
+            if (Vector3.Dot(m_sides[i].transform.up, Vector3.up) > 0.9f)
+            {
+                return m_sides[i];
+            }
+        }
+        return null;
+    }
+
     private void HandlePortalSpawning()
     {
         if (m_portal != null || BaseEnemy.s_allEnemies.Count > 0)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BasePlayer : BaseActor
 {
@@ -63,6 +64,20 @@ public class BasePlayer : BaseActor
         }
 
         DispatchChangedEvent();
+    }
+
+    public override void TakeDamage(int amount, BaseObject damageSource = null)
+    {
+        base.TakeDamage(amount, damageSource);
+        if (m_currentHP <= 0)
+        {
+            DOVirtual.DelayedCall(DAMAGE_TIME + POST_DAMAGE_FEEDBACK_DELAY, () =>
+            {
+                gameObject.SetActive(false);
+                DetachFromTile();
+                DOVirtual.DelayedCall(DAMAGE_TIME + POST_DAMAGE_FEEDBACK_DELAY, Main.Instance.StartGame);
+            });
+        }
     }
 
     public override void SetTile(BaseTile tile, bool rotateToTile = true, Vector3 localRotation = default(Vector3))

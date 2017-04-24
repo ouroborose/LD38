@@ -7,7 +7,6 @@ public class BaseEnemy : BaseActor
 {
     public static readonly List<BaseEnemy> s_allEnemies = new List<BaseEnemy>();
 
-    protected const float DAMAGE_FEEDBACK_DELAY = 0.25f;
 
     protected override void Awake()
     {
@@ -41,7 +40,7 @@ public class BaseEnemy : BaseActor
         IncrementBusyCounter();
         base.TakeDamage(amount, damageSource);
 
-        DOVirtual.DelayedCall(DAMAGE_TIME + DAMAGE_FEEDBACK_DELAY, () =>
+        DOVirtual.DelayedCall(DAMAGE_TIME + POST_DAMAGE_FEEDBACK_DELAY, () =>
         {
             DecrementBusyCounter();
             if (m_currentHP > 0)

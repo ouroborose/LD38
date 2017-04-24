@@ -10,6 +10,7 @@ public class BaseActor : BaseObject
 
     protected const float DAMAGE_SHAKE_DIST = 0.33f;
     protected const float DAMAGE_TIME = 0.5f;
+    protected const float POST_DAMAGE_FEEDBACK_DELAY = 0.1f;
 
     protected const float ROTATION_TIME = 0.25f;
 
@@ -120,11 +121,6 @@ public class BaseActor : BaseObject
 
         Shake(DAMAGE_SHAKE_DIST, DAMAGE_TIME);
         DispatchChangedEvent();
-    }
-
-    public virtual void DispatchChangedEvent()
-    {
-        EventManager.OnObjectChanged.Dispatch(this);
     }
 
     public override string CreateInfoText()

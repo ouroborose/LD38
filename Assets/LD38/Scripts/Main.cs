@@ -31,9 +31,6 @@ public class Main : Singleton<Main> {
     protected override void Awake()
     {
         base.Awake();
-
-        m_currentLevel = 0;
-
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
@@ -44,9 +41,17 @@ public class Main : Singleton<Main> {
 
     public void StartGame()
     {
-        m_player.SetTile(m_world.Sides[0].m_hiddenTile);
-        m_world.Sides[0].m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
-        m_world.Sides[0].Flip();
+        m_currentLevel = 0;
+        m_player.m_displayName = string.Format("World {0}", m_currentLevel);
+        EventManager.OnObjectChanged.Dispatch(m_player);
+        WorldSide topSide = m_world.GetTopSide();
+
+        m_player.SetTile(topSide.m_hiddenTile);
+        m_player.gameObject.SetActive(true);
+        m_player.Reset();
+        topSide.m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
+        topSide.Flip();
+
         DOVirtual.DelayedCall(World.WORLD_POPULATION_STEP_TIME, () =>
         {
             m_world.Populate(m_startingBiomeData);
@@ -56,6 +61,8 @@ public class Main : Singleton<Main> {
     public void AdvanceToNextStage()
     {
         m_currentLevel++;
+        m_player.m_displayName = string.Format("World {0}", m_currentLevel);
+        EventManager.OnObjectChanged.Dispatch(m_player);
         m_world.Populate(m_biomes[UnityEngine.Random.Range(0, m_biomes.Length)]);
     }
 
@@ -67,11 +74,16 @@ public class Main : Singleton<Main> {
     
     protected void UpdateDebugControls()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.F1))
         {
             AdvanceToNextStage();
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            m_player.TakeDamage(m_player.CalculateMaxHP());
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
