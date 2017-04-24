@@ -235,7 +235,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2b75e8f6cdd5c142b3d3053e3bbdbdd, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &343735051
+--- !u!1001 &254019768
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -285,12 +285,12 @@ Prefab:
     - target: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
         type: 2}
@@ -1018,10 +1018,10 @@ MonoBehaviour:
 RectTransform:
   m_PrefabParentObject: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
     type: 2}
-  m_PrefabInternal: {fileID: 343735051}
+  m_PrefabInternal: {fileID: 254019768}
 --- !u!114 &2047154998 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114930723844772956, guid: b9967a6299ac8324bb4f28dab68d9a15,
     type: 2}
-  m_PrefabInternal: {fileID: 343735051}
-  m_Script: {fileID: 11500000, guid: e9aacbd5f18c2b6458d85953142bdd6e, type: 3}
+  m_PrefabInternal: {fileID: 254019768}
+  m_Script: {fileID: 11500000, guid: 06d361f4b6ac25b458a137a71dab6af5, type: 3}

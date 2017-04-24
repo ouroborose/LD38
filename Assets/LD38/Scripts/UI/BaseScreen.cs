@@ -7,9 +7,11 @@ using TMPro;
 public class BaseScreen : MonoBehaviour {
 
     public const float AUTO_ROTATE_SPEED = 30.0f;
-    [SerializeField] private RectTransform m_titleImage;
-    [SerializeField] private TextMeshProUGUI m_playLabel;
-    [SerializeField] private TextMeshProUGUI m_extraText;
+
+    [SerializeField] protected bool m_skippable = true;
+    [SerializeField] protected RectTransform m_titleImage;
+    [SerializeField] protected TextMeshProUGUI m_playLabel;
+    [SerializeField] protected TextMeshProUGUI m_extraText;
     
     protected bool m_startPressed = false;
 
@@ -18,7 +20,10 @@ public class BaseScreen : MonoBehaviour {
     public virtual void Show(bool instant = false)
     {
         gameObject.SetActive(true);
+
+
         m_startPressed = false;
+
         Main.Instance.CameraController.StartRotation();
         if (instant)
         {
@@ -104,6 +109,11 @@ public class BaseScreen : MonoBehaviour {
     public void OnStartPressed()
     {
         if (m_startPressed)
+        {
+            return;
+        }
+
+        if(!m_skippable && m_playLabel.alpha < 0.5f)
         {
             return;
         }

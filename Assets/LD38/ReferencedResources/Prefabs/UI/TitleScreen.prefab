@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9aacbd5f18c2b6458d85953142bdd6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_skippable: 1
   m_titleImage: {fileID: 224978939029086182}
   m_playLabel: {fileID: 114183791927984558}
   m_extraText: {fileID: 114062892176511636}

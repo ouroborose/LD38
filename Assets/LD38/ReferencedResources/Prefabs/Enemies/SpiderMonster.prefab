@@ -124,7 +124,7 @@ MonoBehaviour:
   m_displayName: 
   m_model: {fileID: 4576863590131048}
   m_deathText: Dead
-  m_baseHP: 3
+  m_baseHP: 2
   m_baseAttack: 2
   m_jumpSound: []
   m_damageSound:

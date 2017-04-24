@@ -152,7 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Shield
   m_model: {fileID: 4251314881781350}
-  m_collectSounds: []
+  m_collectSounds:
+  - {fileID: 8300000, guid: 1fdf3534a436731459778439c278b267, type: 3}
+  - {fileID: 8300000, guid: b47be372892dc9a46834d318ef92137b, type: 3}
+  - {fileID: 8300000, guid: 1d5a8084a7a0e8647ab4d8c18fe37273, type: 3}
   m_equipmentSlot: 2
   m_atkBonus: 0
-  m_hpBonus: 1
+  m_hpBonus: 4

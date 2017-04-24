@@ -16,9 +16,9 @@ MonoBehaviour:
   - m_type: 0
     m_probabilityWeight: 2.5
   - m_type: 1
-    m_probabilityWeight: 3
+    m_probabilityWeight: 4
   - m_type: 2
-    m_probabilityWeight: 2
+    m_probabilityWeight: 2.5
   - m_type: 3
     m_probabilityWeight: 1
   m_tiles: 0000000000000000000000000000000000000000

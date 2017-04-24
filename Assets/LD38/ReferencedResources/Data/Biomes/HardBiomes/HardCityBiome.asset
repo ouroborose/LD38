@@ -16,11 +16,11 @@ MonoBehaviour:
   - m_type: 0
     m_probabilityWeight: 2.5
   - m_type: 1
-    m_probabilityWeight: 3
+    m_probabilityWeight: 5
   - m_type: 2
-    m_probabilityWeight: 2
+    m_probabilityWeight: 2.5
   - m_type: 3
-    m_probabilityWeight: 1
+    m_probabilityWeight: 1.5
   m_tiles: 0000000000000000000000000000000000000000
   m_tileModelPrefabs:
   - {fileID: 1272457923119528, guid: a3d142e043aec8e4d921dbca23d7c667, type: 2}
