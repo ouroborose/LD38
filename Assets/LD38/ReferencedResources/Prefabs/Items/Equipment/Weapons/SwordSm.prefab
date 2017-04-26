@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5b99750dc6aac47875b0419dc17167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_displayName: Sword
+  m_displayName: Dagger
   m_model: {fileID: 4414779334628812}
   m_collectSounds:
   - {fileID: 8300000, guid: b897dea678ff71942a31047257620d67, type: 3}
@@ -159,3 +159,4 @@ MonoBehaviour:
   m_equipmentSlot: 1
   m_atkBonus: 1
   m_hpBonus: 0
+  m_levelOffset: 5

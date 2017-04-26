@@ -21,10 +21,27 @@ public class BaseEnemy : BaseActor
     }
     public override void Reset()
     {
-        float scaler = Mathf.Pow(1.15f, Main.Instance.m_currentLevel);
-        m_maxHpBonus = Mathf.CeilToInt(m_baseHP * scaler) - m_baseHP;
-        m_atkBonus = Mathf.CeilToInt(m_baseAttack * scaler) - m_baseAttack;
+        m_maxHpBonus = Main.Instance.GetProgressionScaledValue(m_baseHP, Main.Instance.m_enemyHpScalingFactor);
+        m_atkBonus = Main.Instance.GetProgressionScaledValue(m_baseAttack, Main.Instance.m_enemyAtkScalingFactor);
         base.Reset();
+    }
+
+    [ContextMenu("Print attack values")]
+    public void PrintAtkValues()
+    {
+        for (int i = 0; i < 100; ++i)
+        {
+            Debug.LogFormat("{0}: {1}", i, Main.Instance.GetProgressionScaledValue(m_baseAttack, Main.Instance.m_enemyAtkScalingFactor, 0, i));
+        }
+    }
+
+    [ContextMenu("Print max hp values")]
+    public void PrintMaxHpValues()
+    {
+        for (int i = 0; i < 100; ++i)
+        {
+            Debug.LogFormat("{0}: {1}", i, Main.Instance.GetProgressionScaledValue(m_baseHP, Main.Instance.m_enemyHpScalingFactor, 0, i));
+        }
     }
 
     public override void TakeDamage(int amount, BaseObject damageSource = null)
