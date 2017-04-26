@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5b99750dc6aac47875b0419dc17167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_displayName: Shield
+  m_displayName: Round Shield
   m_model: {fileID: 4251430314235850}
   m_collectSounds:
   - {fileID: 8300000, guid: 1fdf3534a436731459778439c278b267, type: 3}
@@ -158,4 +158,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1d5a8084a7a0e8647ab4d8c18fe37273, type: 3}
   m_equipmentSlot: 2
   m_atkBonus: 0
-  m_hpBonus: 3
+  m_hpBonus: 2
+  m_levelOffset: 5

@@ -202,7 +202,7 @@ public class World : MonoBehaviour {
 
     public void TryToSpawnPortalSpawning()
     {
-        if (m_portal != null)
+        if (m_portal != null || Main.Instance.Player.m_isBusy)
         {
             return;
         }
@@ -214,5 +214,22 @@ public class World : MonoBehaviour {
         }
 
         m_portal = SpawnObject(side, m_portalPrefab) as BasePortal;
+    }
+
+    public WorldSide GetWorldByDirection(Vector3 dir)
+    {
+        WorldSide best = null;
+        float bestDot = float.MinValue;
+        for (int i = 0; i < Main.Instance.World.Sides.Length; ++i)
+        {
+            WorldSide side = Main.Instance.World.Sides[i];
+            float dot = Vector3.Dot(side.transform.up, dir);
+            if (dot > bestDot)
+            {
+                best = side;
+                bestDot = dot;
+            }
+        }
+        return best;
     }
 }

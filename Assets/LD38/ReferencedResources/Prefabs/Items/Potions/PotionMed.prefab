@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 380db45fe60ff8d44b89597fcea57530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_displayName: Potion
+  m_displayName: High Potion
   m_model: {fileID: 4794394495310088}
   m_collectSounds:
   - {fileID: 8300000, guid: 147868736a1e3b54b95ce9c6f3c73626, type: 3}

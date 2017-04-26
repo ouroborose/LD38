@@ -121,10 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc90ac4127dfc34f92542670233cc85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_displayName: 
+  m_displayName: Mushroom
   m_model: {fileID: 4624319916126768}
   m_deathText: Dead
-  m_baseHP: 1
+  m_baseHP: 2
   m_baseAttack: 1
   m_jumpSound: []
   m_damageSound:

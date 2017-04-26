@@ -55,6 +55,10 @@ public class BaseScreen : MonoBehaviour {
 
     public void Update()
     {
+        if(Input.anyKey)
+        {
+            OnStartPressed();
+        }
         Main.Instance.CameraController.RotateCamera(Vector3.right * AUTO_ROTATE_SPEED * Time.deltaTime);
     }
 
@@ -100,7 +104,7 @@ public class BaseScreen : MonoBehaviour {
 
                 if (m_startPressed)
                 {
-                    Main.Instance.CameraController.FinishRotation();
+                    Main.Instance.CameraController.ResetRotation();
                     Main.Instance.StartGame();
                 }
             });

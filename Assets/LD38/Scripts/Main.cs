@@ -20,9 +20,14 @@ public class Main : Singleton<Main>
     public GameObject m_keyPrefab;
 
     [SerializeField] private BiomeData m_startingBiomeData;
-    [SerializeField] private int m_biomeGroupLevelSeparation = 10;
+    public int m_biomeGroupLevelSeparation = 10;
     [SerializeField] private BiomeGroupData[] m_biomeGroups;
 
+    public float m_enemyHpScalingFactor = 1.15f;
+    public float m_enemyAtkScalingFactor = 1.075f;
+
+    public float m_playerHpScalingFactor = 1.125f;
+    public float m_playerAtkScalingFactor = 1.05f;
 
     public int m_currentLevel { get; protected set; }
 
@@ -94,6 +99,20 @@ public class Main : Singleton<Main>
         m_world.Populate(currentGroup.m_biomes[UnityEngine.Random.Range(0, currentGroup. m_biomes.Length)]);
     }
 
+    public int GetProgressionScaledValue(int value, float scaler, float levelOffset = 0, int level = -1)
+    {
+        return Mathf.CeilToInt(value * Main.Instance.GetProgressionScaler(scaler, levelOffset, level)) - value;
+    }
+
+    public float GetProgressionScaler(float baseScaler, float levelOffset = 0, int level = -1)
+    {
+        if(level < 0)
+        {
+            level = m_currentLevel;
+        }
+        return Mathf.Pow(baseScaler, Mathf.Max(0.0f, level - levelOffset));
+    }
+
     public void GameOver()
     {
         m_currentGameState = GameState.GameOver;
@@ -105,7 +124,8 @@ public class Main : Singleton<Main>
 #if UNITY_EDITOR
         UpdateDebugControls();
 #endif
-        UpdatePlayerControls();
+        UpdatePlayerKeyboardControls();
+        UpdatePlayerMouseControls();
     }
     
     protected void UpdateDebugControls()
@@ -147,7 +167,101 @@ public class Main : Singleton<Main>
         }
     }
 
-    protected void UpdatePlayerControls()
+    protected void SelectFrontLeft()
+    {
+        Vector3 dir = -Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        dir.Normalize();
+        dir -= Camera.main.transform.right;
+        SelectWorld(dir);
+    }
+
+    protected void SelectFrontRight()
+    {
+        Vector3 dir = -Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        dir.Normalize();
+        dir += Camera.main.transform.right;
+        SelectWorld(dir);
+    }
+
+    protected void SelectBackLeft()
+    {
+        Vector3 dir = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        dir.Normalize();
+        dir -= Camera.main.transform.right;
+        SelectWorld(dir);
+    }
+
+    protected void SelectBackRight()
+    {
+        Vector3 dir = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        dir.Normalize();
+        dir += Camera.main.transform.right;
+        SelectWorld(dir);
+    }
+
+    protected void SelectWorld(Vector3 dir)
+    {
+        m_world.GetWorldByDirection(dir).OnClick();
+    }
+
+    protected void UpdatePlayerKeyboardControls()
+    {
+        if (m_currentGameState != GameState.GameStarted)
+        {
+            return;
+        }
+
+        
+        if(Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.Z))
+        {
+            m_camera.RotateClockwise();
+        }
+        else if (Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.X))
+        {
+            m_camera.RotateCounterClockwise();
+        }
+
+        /*
+        if (PlayerInputIsBlocked())
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
+            SelectBackLeft();
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        {
+            SelectFrontLeft();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
+            SelectFrontRight();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            SelectBackRight();
+        }
+        */
+
+
+        if (PlayerInputIsBlocked())
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectFrontLeft();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            SelectFrontRight();
+        }
+    }
+
+    protected void UpdatePlayerMouseControls()
     {
 
         if(m_currentGameState != GameState.GameStarted)

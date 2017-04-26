@@ -41,6 +41,24 @@ public class CameraController : MonoBehaviour {
         m_rotationDelta = 0.0f;
     }
 
+    public void ResetRotation()
+    {
+        m_isFinishingRotation = true;
+        m_bestFinishRotation = 0;
+    }
+
+    public void RotateClockwise()
+    {
+        m_isFinishingRotation = true;
+        m_bestFinishRotation += 90.0f;
+    }
+
+    public void RotateCounterClockwise()
+    {
+        m_isFinishingRotation = true;
+        m_bestFinishRotation -= 90.0f;
+    }
+
     protected void LateUpdate()
     {
         if(m_isFinishingRotation)

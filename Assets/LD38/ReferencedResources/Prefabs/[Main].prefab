@@ -64,5 +64,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: acfa54676022f164ab84adfeb4c06696, type: 2}
   - {fileID: 11400000, guid: c08513480a614244481685c070068eee, type: 2}
   - {fileID: 11400000, guid: a6b2ccc5c5fb1f84fb874da9cac6c4d6, type: 2}
+  m_enemyHpScalingFactor: 1.15
+  m_enemyAtkScalingFactor: 1.1
+  m_playerHpScalingFactor: 1.025
+  m_playerAtkScalingFactor: 1.02
   m_mouseDragThreshold: 20
-  m_currentGameState: 0
+  m_currentGameState: 1
