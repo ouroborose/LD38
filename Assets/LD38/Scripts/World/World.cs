@@ -18,7 +18,8 @@ public class World : MonoBehaviour {
     [SerializeField] private AudioClip[] m_flipStartSound;
     [SerializeField] private AudioClip[] m_flipFinishSound;
 
-    public bool m_isBusy { get; private set; }
+    public bool m_isBusy { get { return m_busyCount > 0; } }
+    protected int m_busyCount = 0;
     public bool m_anySideBusy
     {
         get
@@ -36,8 +37,6 @@ public class World : MonoBehaviour {
 
     protected void Awake()
     {
-        m_isBusy = false;
-
         for(int i = 0; i < m_sides.Length; ++i)
         {
             m_sides[i].Init(this);
@@ -68,7 +67,7 @@ public class World : MonoBehaviour {
     public void Populate(BiomeData data)
     {
         EventManager.OnLevelPopulationStarted.Dispatch();
-        m_isBusy = true;
+        m_busyCount++;
         StartCoroutine(HandleWorldPopulation(data));
     }
 
@@ -111,8 +110,7 @@ public class World : MonoBehaviour {
             yield return new WaitForSeconds(WORLD_POPULATION_STEP_TIME);
             tileIndex++;
         }
-
-        m_isBusy = false;
+        m_busyCount--;
         EventManager.OnLevelPopulationFinished.Dispatch();
     }
 
@@ -154,7 +152,7 @@ public class World : MonoBehaviour {
 
     public void RotateToSide(WorldSide side)
     {
-        m_isBusy = true;
+        m_busyCount++;
         EventManager.OnWorldRotationStarted.Dispatch();
         transform.DORotateQuaternion(Quaternion.FromToRotation(Vector3.up, -side.transform.up) * transform.rotation, ROTATE_TO_SIDE_TIME).SetEase(Ease.InOutBack).OnComplete(OnRotateComplete);
         BasePlayer player = Main.Instance.Player;
@@ -172,7 +170,7 @@ public class World : MonoBehaviour {
 
     private void OnRotateComplete()
     {
-        m_isBusy = false;
+        m_busyCount--;
     }
 
     public WorldSide FindEmptySide()

@@ -8,11 +8,12 @@ public class BaseObject : MonoBehaviour {
     [SerializeField] protected Transform m_model;
     public Transform Model { get { return m_model; } }
 
-    public bool m_isBusy { get { return m_busyCounter > 0; } }
+    public bool m_isBusy { get { return m_busyCounter > 0 
+                || (m_tile != null && (m_tile.m_isBusy || m_tile == m_tile.m_side.m_hiddenTile)); } }
 
     private int m_busyCounter = 0;
     protected Renderer[] m_renderers;
-    protected BaseTile m_tile;
+    public BaseTile m_tile { get; protected set; }
     
     protected virtual void Awake()
     {

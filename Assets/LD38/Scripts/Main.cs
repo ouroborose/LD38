@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -37,7 +38,8 @@ public class Main : Singleton<Main>
     private Vector3 m_mouseStartPos;
     private Vector3 m_lastMousePos;
     private bool m_cameraDragStarted = false;
-    
+    private float m_playTime = 0.0f;
+
     public enum GameState
     {
         Title,
@@ -65,6 +67,8 @@ public class Main : Singleton<Main>
 
     public void StartGame()
     {
+        Analytics.CustomEvent("GameStart");
+        m_playTime = 0.0f;
         m_currentLevel = 0;
         m_player.m_displayName = string.Format("World {0}", m_currentLevel);
         EventManager.OnObjectChanged.Dispatch(m_player);
@@ -78,8 +82,8 @@ public class Main : Singleton<Main>
 
         DOVirtual.DelayedCall(World.WORLD_POPULATION_STEP_TIME, () =>
         {
-            m_currentGameState = GameState.GameStarted;
             m_world.Populate(m_startingBiomeData);
+            m_currentGameState = GameState.GameStarted;
         });
 
         EventManager.OnGameStart.Dispatch();
@@ -116,6 +120,14 @@ public class Main : Singleton<Main>
     public void GameOver()
     {
         m_currentGameState = GameState.GameOver;
+        Analytics.CustomEvent("GameOver", new Dictionary<string, object>()
+        {
+            { "PlayTime", m_playTime },
+            { "MaxHp", m_player.CalculateMaxHP() },
+            { "Atk", m_player.CalculateAttackDamage() },
+            { "Keys", m_player.m_numKeys },
+            { "World", m_currentLevel }
+        });
         EventManager.OnGameOver.Dispatch();
     }
 
@@ -124,6 +136,13 @@ public class Main : Singleton<Main>
 #if UNITY_EDITOR
         UpdateDebugControls();
 #endif
+        if (m_currentGameState != GameState.GameStarted)
+        {
+            return;
+        }
+
+        m_playTime += Time.deltaTime;
+
         UpdatePlayerKeyboardControls();
         UpdatePlayerMouseControls();
     }
@@ -206,12 +225,6 @@ public class Main : Singleton<Main>
 
     protected void UpdatePlayerKeyboardControls()
     {
-        if (m_currentGameState != GameState.GameStarted)
-        {
-            return;
-        }
-
-        
         if(Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.Z))
         {
             m_camera.RotateClockwise();
@@ -220,31 +233,6 @@ public class Main : Singleton<Main>
         {
             m_camera.RotateCounterClockwise();
         }
-
-        /*
-        if (PlayerInputIsBlocked())
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-        {
-            SelectBackLeft();
-        }
-        else if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-        {
-            SelectFrontLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-        {
-            SelectFrontRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-        {
-            SelectBackRight();
-        }
-        */
-
 
         if (PlayerInputIsBlocked())
         {
@@ -262,13 +250,7 @@ public class Main : Singleton<Main>
     }
 
     protected void UpdatePlayerMouseControls()
-    {
-
-        if(m_currentGameState != GameState.GameStarted)
-        {
-            return;
-        }
-
+    {           
         if(Input.GetMouseButtonDown(0))
         {
             m_mouseStartPos = Input.mousePosition;
@@ -296,6 +278,7 @@ public class Main : Singleton<Main>
             {
                 // finish rotation
                 m_camera.FinishRotation();
+                m_cameraDragStarted = false;
             }
             else
             {
@@ -315,6 +298,12 @@ public class Main : Singleton<Main>
                     }
                 }
             }
+        }
+        else if (m_cameraDragStarted)
+        {
+            // finish rotation
+            m_camera.FinishRotation();
+            m_cameraDragStarted = false;
         }
     }
 
