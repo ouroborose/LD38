@@ -152,6 +152,11 @@ public class World : MonoBehaviour {
 
     public void RotateToSide(WorldSide side)
     {
+        if(m_isBusy)
+        {
+            return;
+        }
+
         m_busyCount++;
         EventManager.OnWorldRotationStarted.Dispatch();
         transform.DORotateQuaternion(Quaternion.FromToRotation(Vector3.up, -side.transform.up) * transform.rotation, ROTATE_TO_SIDE_TIME).SetEase(Ease.InOutBack).OnComplete(OnRotateComplete);

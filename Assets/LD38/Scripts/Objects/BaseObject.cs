@@ -9,7 +9,8 @@ public class BaseObject : MonoBehaviour {
     public Transform Model { get { return m_model; } }
 
     public bool m_isBusy { get { return m_busyCounter > 0 
-                || (m_tile != null && (m_tile.m_isBusy || m_tile == m_tile.m_side.m_hiddenTile)); } }
+                || (m_tile != null && (m_tile.m_isBusy || m_tile == m_tile.m_side.m_hiddenTile))
+                || transform.parent == null; } }
 
     private int m_busyCounter = 0;
     protected Renderer[] m_renderers;

@@ -34,13 +34,13 @@ MonoBehaviour:
     m_drops:
     - m_prefab: {fileID: 1154862730768578, guid: 15d87f49d348c6f4f8cccc4708071641,
         type: 2}
-      m_probabilityWeight: 0.5
+      m_probabilityWeight: 0.25
     - m_prefab: {fileID: 1436143698493486, guid: aa4ccce14cd7e6640b50d3b16ecffb6e,
         type: 2}
-      m_probabilityWeight: 1.25
+      m_probabilityWeight: 1.75
     - m_prefab: {fileID: 1662872872981830, guid: 284af192441627f499864141ff1bda5d,
         type: 2}
-      m_probabilityWeight: 1.25
+      m_probabilityWeight: 1.75
     - m_prefab: {fileID: 1227316709193998, guid: 544512dd0a9d51e4f93b5cdec9df5392,
         type: 2}
-      m_probabilityWeight: 1
+      m_probabilityWeight: 0.5

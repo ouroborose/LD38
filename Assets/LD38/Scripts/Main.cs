@@ -52,8 +52,6 @@ public class Main : Singleton<Main>
     protected override void Awake()
     {
         base.Awake();
-
-        Input.simulateMouseWithTouches = true;
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
@@ -63,6 +61,23 @@ public class Main : Singleton<Main>
         {
             StartGame();
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        if(m_currentGameState == GameState.GameStarted)
+        {
+            Analytics.CustomEvent("GameClosed", new Dictionary<string, object>()
+            {
+                { "PlayTime", m_playTime },
+                { "MaxHp", m_player.CalculateMaxHP() },
+                { "Atk", m_player.CalculateAttackDamage() },
+                { "Keys", m_player.m_numKeys },
+                { "World", m_currentLevel }
+            });
+        }
+        
+        base.OnDestroy();
     }
 
     public void StartGame()
@@ -145,6 +160,7 @@ public class Main : Singleton<Main>
 
         UpdatePlayerKeyboardControls();
         UpdatePlayerMouseControls();
+        UpdatePlayerTouchControls();
     }
     
     protected void UpdateDebugControls()
@@ -270,7 +286,6 @@ public class Main : Singleton<Main>
                 m_cameraDragStarted = true;
                 m_camera.StartRotation();
             }
-
         }
         else if(Input.GetMouseButtonUp(0))
         {
@@ -299,11 +314,62 @@ public class Main : Singleton<Main>
                 }
             }
         }
-        else if (m_cameraDragStarted)
+    }
+
+    protected void UpdatePlayerTouchControls()
+    {
+        if(Input.touchCount > 0)
         {
-            // finish rotation
-            m_camera.FinishRotation();
-            m_cameraDragStarted = false;
+            Touch touch = Input.touches[0];
+            Vector3 touchPos = touch.position;
+            if (touch.phase == TouchPhase.Began)
+            {
+                m_mouseStartPos = touchPos;
+                m_lastMousePos = m_mouseStartPos;
+                m_cameraDragStarted = false;
+            }
+            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+            {
+                if (m_cameraDragStarted)
+                {
+                    // do drag
+                    Vector3 mouseDelta = touch.deltaPosition;
+                    mouseDelta.x *= -1.0f;
+                    m_camera.RotateCamera(mouseDelta);
+                }
+                else if (Mathf.Abs(m_mouseStartPos.x - touchPos.x) > m_mouseDragThreshold)
+                {
+                    m_cameraDragStarted = true;
+                    m_camera.StartRotation();
+                }
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                if (m_cameraDragStarted)
+                {
+                    // finish rotation
+                    m_camera.FinishRotation();
+                    m_cameraDragStarted = false;
+                }
+                else
+                {
+                    if (PlayerInputIsBlocked())
+                    {
+                        return;
+                    }
+
+                    // Handle click
+                    RaycastHit hit;
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(touchPos), out hit, Mathf.Infinity))
+                    {
+                        IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
+                        if (clickable != null)
+                        {
+                            clickable.OnClick();
+                        }
+                    }
+                }
+            }
         }
     }
 
