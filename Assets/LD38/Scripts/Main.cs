@@ -34,6 +34,7 @@ public class Main : Singleton<Main>
 
     [Header("Controls")]
     [SerializeField] private float m_mouseDragThreshold = 20;
+    [SerializeField] private float m_touchDragThreshold = 1;
 
     private Vector3 m_mouseStartPos;
     private Vector3 m_lastMousePos;
@@ -52,6 +53,7 @@ public class Main : Singleton<Main>
     protected override void Awake()
     {
         base.Awake();
+        Input.simulateMouseWithTouches = true;
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
@@ -158,9 +160,12 @@ public class Main : Singleton<Main>
 
         m_playTime += Time.deltaTime;
 
+        #if UNITY_IOS && !UNITY_EDITOR
+        UpdatePlayerTouchControls();
+        #else
         UpdatePlayerKeyboardControls();
         UpdatePlayerMouseControls();
-        UpdatePlayerTouchControls();
+        #endif
     }
     
     protected void UpdateDebugControls()
@@ -334,10 +339,10 @@ public class Main : Singleton<Main>
                 {
                     // do drag
                     Vector3 mouseDelta = touch.deltaPosition;
-                    mouseDelta.x *= -1.0f;
+                    //mouseDelta.x *= -1.0f;
                     m_camera.RotateCamera(mouseDelta);
                 }
-                else if (Mathf.Abs(m_mouseStartPos.x - touchPos.x) > m_mouseDragThreshold)
+                else if (Mathf.Abs(m_mouseStartPos.x - touchPos.x) > m_touchDragThreshold)
                 {
                     m_cameraDragStarted = true;
                     m_camera.StartRotation();
