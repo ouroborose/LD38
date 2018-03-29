@@ -69,4 +69,8 @@ MonoBehaviour:
   m_playerHpScalingFactor: 1.1
   m_playerAtkScalingFactor: 1.1
   m_mouseDragThreshold: 20
-  m_currentGameState: 1
+  m_touchDragThreshold: 1
+  m_dragTrail: {fileID: 0}
+  m_clickFeedbackPrefab: {fileID: 1505380979910666, guid: 8a57b442f2817ce47b557d76debe9198,
+    type: 2}
+  m_currentGameState: 0

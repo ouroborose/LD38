@@ -41,6 +41,9 @@ public class Main : Singleton<Main>
     private bool m_cameraDragStarted = false;
     private float m_playTime = 0.0f;
 
+    [SerializeField] private LocalSpaceTrailRenderer m_dragTrail;
+    [SerializeField] private GameObject m_clickFeedbackPrefab;
+
     public enum GameState
     {
         Title,
@@ -59,7 +62,7 @@ public class Main : Singleton<Main>
 
     protected void Start()
     {
-        if(m_autoStart)
+        if (m_autoStart)
         {
             StartGame();
         }
@@ -67,7 +70,7 @@ public class Main : Singleton<Main>
 
     protected override void OnDestroy()
     {
-        if(m_currentGameState == GameState.GameStarted)
+        if (m_currentGameState == GameState.GameStarted)
         {
             Analytics.CustomEvent("GameClosed", new Dictionary<string, object>()
             {
@@ -78,7 +81,7 @@ public class Main : Singleton<Main>
                 { "World", m_currentLevel }
             });
         }
-        
+
         base.OnDestroy();
     }
 
@@ -108,7 +111,7 @@ public class Main : Singleton<Main>
 
     public BiomeGroupData GetCurrentBiomeGroup()
     {
-        return m_biomeGroups[Mathf.Min(m_currentLevel/m_biomeGroupLevelSeparation, m_biomeGroups.Length-1)];
+        return m_biomeGroups[Mathf.Min(m_currentLevel / m_biomeGroupLevelSeparation, m_biomeGroups.Length - 1)];
     }
 
     public void AdvanceToNextStage()
@@ -117,7 +120,7 @@ public class Main : Singleton<Main>
         m_player.m_displayName = string.Format("World {0}", m_currentLevel);
         EventManager.OnObjectChanged.Dispatch(m_player);
         BiomeGroupData currentGroup = GetCurrentBiomeGroup();
-        m_world.Populate(currentGroup.m_biomes[UnityEngine.Random.Range(0, currentGroup. m_biomes.Length)]);
+        m_world.Populate(currentGroup.m_biomes[UnityEngine.Random.Range(0, currentGroup.m_biomes.Length)]);
     }
 
     public int GetProgressionScaledValue(int value, float scaler, float levelOffset = 0, int level = -1)
@@ -127,7 +130,7 @@ public class Main : Singleton<Main>
 
     public float GetProgressionScaler(float baseScaler, float levelOffset = 0, int level = -1)
     {
-        if(level < 0)
+        if (level < 0)
         {
             level = m_currentLevel;
         }
@@ -160,17 +163,17 @@ public class Main : Singleton<Main>
 
         m_playTime += Time.deltaTime;
 
-        #if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
         UpdatePlayerTouchControls();
-        #else
+#else
         UpdatePlayerKeyboardControls();
         UpdatePlayerMouseControls();
-        #endif
+#endif
     }
-    
+
     protected void UpdateDebugControls()
     {
-        if(Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             AdvanceToNextStage();
         }
@@ -182,11 +185,11 @@ public class Main : Singleton<Main>
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            Vector3 dir = new Vector3(Random.Range(-0.75f,0.75f), 1.0f, 0);
+            Vector3 dir = new Vector3(Random.Range(-0.75f, 0.75f), 1.0f, 0);
             dir.Normalize();
             PopTextManager.Instance.Show("Test", m_player.transform.position + Vector3.up, dir * 5, Color.white);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.F4))
         {
             m_player.Heal(m_player.CalculateMaxHP());
@@ -246,7 +249,7 @@ public class Main : Singleton<Main>
 
     protected void UpdatePlayerKeyboardControls()
     {
-        if(Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.Z))
         {
             m_camera.RotateClockwise();
         }
@@ -271,16 +274,16 @@ public class Main : Singleton<Main>
     }
 
     protected void UpdatePlayerMouseControls()
-    {           
-        if(Input.GetMouseButtonDown(0))
+    {
+        if (Input.GetMouseButtonDown(0))
         {
             m_mouseStartPos = Input.mousePosition;
             m_lastMousePos = m_mouseStartPos;
             m_cameraDragStarted = false;
         }
-        else if(Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))
         {
-            if(m_cameraDragStarted)
+            if (m_cameraDragStarted)
             {
                 // do drag
                 Vector3 mouseDelta = Input.mousePosition - m_lastMousePos;
@@ -292,9 +295,9 @@ public class Main : Singleton<Main>
                 m_camera.StartRotation();
             }
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0))
         {
-            if(m_cameraDragStarted)
+            if (m_cameraDragStarted)
             {
                 // finish rotation
                 m_camera.FinishRotation();
@@ -309,21 +312,25 @@ public class Main : Singleton<Main>
 
                 // Handle click
                 RaycastHit hit;
-                if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+                Ray ray = m_camera.m_cam.ScreenPointToRay(Input.mousePosition);
+                Vector3 feedbackPos = ray.GetPoint(m_camera.m_cam.transform.localPosition.magnitude);
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
                     IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
                     if (clickable != null)
                     {
                         clickable.OnClick();
                     }
+                    feedbackPos = hit.point;
                 }
+                DoClickFeedback(feedbackPos, -m_camera.m_cam.transform.forward);
             }
         }
     }
 
     protected void UpdatePlayerTouchControls()
     {
-        if(Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.touches[0];
             Vector3 touchPos = touch.position;
@@ -341,12 +348,14 @@ public class Main : Singleton<Main>
                     Vector3 mouseDelta = touch.deltaPosition;
                     //mouseDelta.x *= -1.0f;
                     m_camera.RotateCamera(mouseDelta);
+
                 }
                 else if (Mathf.Abs(m_mouseStartPos.x - touchPos.x) > m_touchDragThreshold)
                 {
                     m_cameraDragStarted = true;
                     m_camera.StartRotation();
                 }
+                
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
@@ -365,23 +374,56 @@ public class Main : Singleton<Main>
 
                     // Handle click
                     RaycastHit hit;
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(touchPos), out hit, Mathf.Infinity))
+                    Ray ray = m_camera.m_cam.ScreenPointToRay(touchPos);
+                    Vector3 feedbackPos = ray.GetPoint(m_camera.m_cam.transform.localPosition.magnitude);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
                         IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
                         if (clickable != null)
                         {
                             clickable.OnClick();
                         }
+                        feedbackPos = hit.point;
                     }
+
+                    DoClickFeedback(feedbackPos, -m_camera.m_cam.transform.forward);
                 }
+
             }
         }
     }
 
     protected void LateUpdate()
     {
+
+#if UNITY_IOS && !UNITY_EDITOR
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.touches[0];
+            m_lastMousePos = touch.position;
+        }
+#else
         m_lastMousePos = Input.mousePosition;
+#endif
+        UpdateDragFeedBack();
     }
+
+    protected void DoClickFeedback(Vector3 pos, Vector3 normal)
+    {
+        // spawn click vfx at click position
+        GameObject clickVfx = Instantiate(m_clickFeedbackPrefab, pos,Quaternion.LookRotation(normal));
+        clickVfx.transform.parent = m_camera.m_cam.transform;
+        Destroy(clickVfx, clickVfx.GetComponent<ParticleSystem>().main.duration);
+    }
+    
+    protected void UpdateDragFeedBack()
+    {
+        if(m_cameraDragStarted)
+        {
+            m_dragTrail.transform.position = m_camera.m_cam.ScreenPointToRay(m_lastMousePos).GetPoint(2.0f);
+        }
+    }
+    
 
     protected bool PlayerInputIsBlocked()
     {

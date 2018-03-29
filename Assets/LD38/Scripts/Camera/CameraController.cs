@@ -12,9 +12,11 @@ public class CameraController : MonoBehaviour {
     private float m_rotationDelta = 0.0f;
     private float m_bestFinishRotation = 0.0f;
     public bool m_isFinishingRotation { get; private set; }
+    public Camera m_cam { get; private set; }
 
     protected void Awake()
     {
+        m_cam = Camera.main;
         m_isFinishingRotation = false;
     }
 
