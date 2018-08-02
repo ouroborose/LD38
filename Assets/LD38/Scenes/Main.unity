@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 945922734}
-  m_IndirectSpecularColor: {r: 0.09776252, g: 0.09165826, b: 0.1735087, a: 1}
+  m_IndirectSpecularColor: {r: 0.093876995, g: 0.09278751, b: 0.17393073, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -153,16 +153,16 @@ Prefab:
       value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 214568f07f800bd45abf1c86d0a891c0, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 214568f07f800bd45abf1c86d0a891c0, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!108 &945922734 stripped
 Light:
-  m_PrefabParentObject: {fileID: 108499714825523036, guid: 5a3193c15641ccc48ad8bd199f9cb984,
+  m_CorrespondingSourceObject: {fileID: 108499714825523036, guid: 5a3193c15641ccc48ad8bd199f9cb984,
     type: 2}
   m_PrefabInternal: {fileID: 1686645472}
 --- !u!114 &1351552525 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
+  m_CorrespondingSourceObject: {fileID: 114397907775400666, guid: 9506eb8d502238d45ab81540166cc67f,
     type: 2}
   m_PrefabInternal: {fileID: 2129287099}
   m_Script: {fileID: 11500000, guid: 04f93832ed3500f40a91d22f727cf4c5, type: 3}
@@ -205,18 +205,23 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114901094814982798, guid: 5a3193c15641ccc48ad8bd199f9cb984,
+        type: 2}
+      propertyPath: m_segmentDist
+      value: 0.001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5a3193c15641ccc48ad8bd199f9cb984, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 5a3193c15641ccc48ad8bd199f9cb984, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &1686645473 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114634218997801228, guid: 5a3193c15641ccc48ad8bd199f9cb984,
+  m_CorrespondingSourceObject: {fileID: 114634218997801228, guid: 5a3193c15641ccc48ad8bd199f9cb984,
     type: 2}
   m_PrefabInternal: {fileID: 1686645472}
   m_Script: {fileID: 11500000, guid: b9854a37e41ba5a4ab7f49fc76e8ec8f, type: 3}
 --- !u!114 &1686645474 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114901094814982798, guid: 5a3193c15641ccc48ad8bd199f9cb984,
+  m_CorrespondingSourceObject: {fileID: 114901094814982798, guid: 5a3193c15641ccc48ad8bd199f9cb984,
     type: 2}
   m_PrefabInternal: {fileID: 1686645472}
   m_Script: {fileID: 11500000, guid: ea9ccaee59f15c547a2d2959228aa6fe, type: 3}
@@ -280,8 +285,8 @@ Prefab:
       value: 
       objectReference: {fileID: 1686645474}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 9e883b28c16a4fd429e438e13a772a8d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 9e883b28c16a4fd429e438e13a772a8d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1848825532
 Prefab:
   m_ObjectHideFlags: 0
@@ -322,11 +327,11 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 85b125900eca8e140b4b61a25a261138, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 85b125900eca8e140b4b61a25a261138, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &2092922469 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114520139940319924, guid: 85b125900eca8e140b4b61a25a261138,
+  m_CorrespondingSourceObject: {fileID: 114520139940319924, guid: 85b125900eca8e140b4b61a25a261138,
     type: 2}
   m_PrefabInternal: {fileID: 1848825532}
   m_Script: {fileID: 11500000, guid: a50094d52a12f7e489785f08c75852a4, type: 3}
@@ -370,5 +375,5 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 9506eb8d502238d45ab81540166cc67f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 9506eb8d502238d45ab81540166cc67f, type: 2}
+  m_IsPrefabAsset: 0

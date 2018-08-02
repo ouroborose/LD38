@@ -5,13 +5,16 @@ using UnityEngine;
 public class LocalSpaceTrailRenderer : MonoBehaviour {
     public float m_segmentDist = 0.01f;
     public float m_segmentLifeTime = 0.1f;
+    public bool m_useSegmentLifeTime = true;
     public int m_maxLength = 25;
 
     [SerializeField] protected LineRenderer m_lineRenderer;
     protected Queue<Vector3> m_positions = new Queue<Vector3>();
+    protected Queue<float> m_lifeTimes = new Queue<float>();
 
     protected float m_segmentLifeTimer = 0.0f;
     protected Vector3 m_lastLocalPos;
+    protected float m_timeSinceLastSegment;
 
     protected void FixedUpdate()
     {
@@ -30,14 +33,14 @@ public class LocalSpaceTrailRenderer : MonoBehaviour {
             dirty = true;
         }
 
-        if (m_positions.Count > 0)
+        if (m_useSegmentLifeTime && m_positions.Count > 0)
         {
             m_segmentLifeTimer += Time.deltaTime;
             if (m_segmentLifeTimer >= m_segmentLifeTime)
             {
                 // remove segment
                 m_positions.Dequeue();
-                m_segmentLifeTimer = 0.0f;
+                m_segmentLifeTimer -= m_segmentLifeTime;
                 dirty = true;
             }
         }

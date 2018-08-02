@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Advertisements;
 
 public class BaseScreen : MonoBehaviour {
 
@@ -12,7 +13,8 @@ public class BaseScreen : MonoBehaviour {
     [SerializeField] protected RectTransform m_titleImage;
     [SerializeField] protected TextMeshProUGUI m_playLabel;
     [SerializeField] protected TextMeshProUGUI m_extraText;
-    
+    [SerializeField] protected bool m_showAds = false;
+
     protected bool m_startPressed = false;
 
     protected Sequence m_lastSequence;
@@ -104,10 +106,40 @@ public class BaseScreen : MonoBehaviour {
 
                 if (m_startPressed)
                 {
-                    Main.Instance.CameraController.ResetRotation();
-                    Main.Instance.StartGame();
+                    if(m_showAds)
+                    {
+                        ShowAd();
+                    }
+                    else
+                    {
+                        StartGame();
+                    }
                 }
             });
+    }
+
+    protected void ShowAd()
+    {
+        if (Advertisement.IsReady("rewardedVideo"))
+        {
+            var options = new ShowOptions { resultCallback = HandleShowResult };
+            Advertisement.Show("rewardedVideo", options);
+        }
+        else
+        {
+            StartGame();
+        }
+    }
+
+    private void HandleShowResult(ShowResult result)
+    {
+        StartGame();
+    }
+
+    protected void StartGame()
+    {
+        Main.Instance.CameraController.ResetRotation();
+        Main.Instance.StartGame();
     }
 
     public void OnStartPressed()

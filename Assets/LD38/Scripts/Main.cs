@@ -422,6 +422,8 @@ public class Main : Singleton<Main>
         {
             m_dragTrail.transform.position = m_camera.m_cam.ScreenPointToRay(m_lastMousePos).GetPoint(2.0f);
         }
+
+        m_dragTrail.m_useSegmentLifeTime = !m_cameraDragStarted;
     }
     
 
