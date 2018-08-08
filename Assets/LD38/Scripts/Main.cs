@@ -505,21 +505,31 @@ public class Main : Singleton<Main>
     [ContextMenu("LoadData")]
     public void LoadData()
     {
-        if(HasSave())
+        LoadGame(GetSaveData());
+    }
+
+    public SaveData GetSaveData()
+    {
+        if (HasSave())
         {
-            Analytics.CustomEvent("GameLoaded");
             string saveDataString = PlayerPrefs.GetString(SAVE_KEY, "");
             if (!string.IsNullOrEmpty(saveDataString))
             {
                 //Debug.Log(saveDataString);
-                SaveData data = JsonUtility.FromJson<SaveData>(saveDataString);
-                LoadGame(data);
+                return JsonUtility.FromJson<SaveData>(saveDataString);
             }
         }
+        return null;
     }
 
     public void LoadGame(SaveData data)
     {
+        if(data == null)
+        {
+            return;
+        }
+
+        Analytics.CustomEvent("GameLoaded");
         m_camera.ResetRotation();
 
         // restore level

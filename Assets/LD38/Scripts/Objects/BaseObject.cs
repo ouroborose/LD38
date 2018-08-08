@@ -27,6 +27,11 @@ public class BaseObject : MonoBehaviour {
         m_busyCounter = 0;
         m_renderers = GetComponentsInChildren<Renderer>();
         m_prefabIdentifier = GetComponent<VuLib.BasePrefabIdentifier>();
+
+        if(m_model == null)
+        {
+            m_model = transform;
+        }
     }
 
     protected virtual void OnDestroy()

@@ -304,11 +304,21 @@ public class World : MonoBehaviour {
                 {
                     actor.LoadFromData(sideData.m_actorData);
                 }
-
-                BasePortal portal = obj as BasePortal;
-                if(portal != null)
+                else
                 {
-                    m_portal = portal;
+                    BasePortal portal = obj as BasePortal;
+                    if (portal != null)
+                    {
+                        m_portal = portal;
+                    }
+                    else
+                    {
+                        BaseItem item = obj as BaseItem;
+                        if (item != null)
+                        {
+                            item.Model.position = side.m_hiddenTile.transform.TransformPoint(new Vector3(0.0f, 0.5f, 0.0f));
+                        }
+                    }
                 }
             }
             else

@@ -167,10 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_displayName: Key
-  m_model: {fileID: 0}
-  m_biomeAssetIndex: 0
+  m_model: {fileID: 4439404820214574}
   m_collectSounds:
   - {fileID: 8300000, guid: 37f305ec296c8f647b20fbc6ccc38a86, type: 3}
   - {fileID: 8300000, guid: d8d1d7478775f4544a75cde03e17b93f, type: 3}
   - {fileID: 8300000, guid: 389e74723369d3d47b0b2f0fab7cc890, type: 3}
-  m_dropType: 0

@@ -547,12 +547,12 @@ Prefab:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224075191975308412, guid: d5a8398144d29544faa8ba3bd371c693,
     type: 2}
-  m_PrefabInternal: {fileID: 2055724998}
+  m_PrefabInternal: {fileID: 1973906435}
 --- !u!114 &873401239 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114080424731132336, guid: d5a8398144d29544faa8ba3bd371c693,
     type: 2}
-  m_PrefabInternal: {fileID: 2055724998}
+  m_PrefabInternal: {fileID: 1973906435}
   m_Script: {fileID: 11500000, guid: d88d35ceee458e244989324129277167, type: 3}
 --- !u!114 &990563433 stripped
 MonoBehaviour:
@@ -798,18 +798,7 @@ MonoBehaviour:
   m_playerInfoUI: {fileID: 1149217521}
   m_leftObjectInfoUI: {fileID: 1308881586}
   m_rightObjectInfoUI: {fileID: 990563433}
---- !u!224 &2047154997 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
-    type: 2}
-  m_PrefabInternal: {fileID: 427181193}
---- !u!114 &2047154998 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114930723844772956, guid: b9967a6299ac8324bb4f28dab68d9a15,
-    type: 2}
-  m_PrefabInternal: {fileID: 427181193}
-  m_Script: {fileID: 11500000, guid: 06d361f4b6ac25b458a137a71dab6af5, type: 3}
---- !u!1001 &2055724998
+--- !u!1001 &1973906435
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -906,22 +895,22 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114714845904729972, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114517414592953044, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114714845904729972, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114517414592953044, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114183791927984558, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114510310446018376, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114183791927984558, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114510310446018376, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -936,12 +925,22 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114517414592953044, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114183791927984558, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114517414592953044, guid: d5a8398144d29544faa8ba3bd371c693,
+    - target: {fileID: 114183791927984558, guid: d5a8398144d29544faa8ba3bd371c693,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114477395450548620, guid: d5a8398144d29544faa8ba3bd371c693,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114477395450548620, guid: d5a8398144d29544faa8ba3bd371c693,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -949,3 +948,14 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5a8398144d29544faa8ba3bd371c693, type: 2}
   m_IsPrefabAsset: 0
+--- !u!224 &2047154997 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224912876436565220, guid: b9967a6299ac8324bb4f28dab68d9a15,
+    type: 2}
+  m_PrefabInternal: {fileID: 427181193}
+--- !u!114 &2047154998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114930723844772956, guid: b9967a6299ac8324bb4f28dab68d9a15,
+    type: 2}
+  m_PrefabInternal: {fileID: 427181193}
+  m_Script: {fileID: 11500000, guid: 06d361f4b6ac25b458a137a71dab6af5, type: 3}
