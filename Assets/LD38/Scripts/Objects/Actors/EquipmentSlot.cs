@@ -5,10 +5,13 @@ using UnityEngine;
 public class EquipmentSlot : MonoBehaviour {
     public BaseEquipment.EquipmentSlotId m_id;
     public GameObject m_equipment;
+    public int m_prefabId = VuLib.BasePrefabIdentifier.INVALID_PREFAB_ID;
 
     public void Equip(BaseEquipment equipment)
     {
         RemoveEquipment();
+
+        m_prefabId = equipment.m_prefabIdentifier._id;
 
         m_equipment = Instantiate(equipment.Model.gameObject);
         m_equipment.transform.parent = transform;

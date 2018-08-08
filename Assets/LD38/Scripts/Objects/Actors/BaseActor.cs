@@ -108,9 +108,12 @@ public class BaseActor : BaseObject
         return m_baseHP + m_maxHpBonus;
     }
 
-    public virtual void Heal(int amount)
+    public virtual void Heal(int amount, bool showPopText = true)
     {
-        ShowPositivePopText(string.Format("+{0} hp", amount));
+        if(showPopText)
+        {
+            ShowPositivePopText(string.Format("+{0} hp", amount));
+        }
 
         m_currentHP += amount;
         int maxHP = CalculateMaxHP();
@@ -145,5 +148,25 @@ public class BaseActor : BaseObject
         return base.CreateInfoText() + string.Format("\nHp: {0}/{1}\nAtk: {2}", m_currentHP, CalculateMaxHP(), CalculateAttackDamage());
     }
 
-    
+    public virtual ActorData GenerateActorData()
+    {
+        ActorData data = new ActorData();
+        data.m_currentHP = m_currentHP;
+        data.m_baseHP = m_baseHP;
+        data.m_maxHpBonus = m_maxHpBonus;
+
+        data.m_baseAttack = m_baseAttack;
+        data.m_atkBonus = m_atkBonus;
+        return data;
+    }
+
+    public virtual void LoadFromData(ActorData data)
+    {
+        m_currentHP = data.m_currentHP;
+        m_baseHP = data.m_baseHP;
+        m_maxHpBonus = data.m_maxHpBonus;
+
+        m_baseAttack = data.m_baseAttack;
+        m_atkBonus = data.m_atkBonus;
+    }
 }

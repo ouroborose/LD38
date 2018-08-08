@@ -4,6 +4,9 @@ using UnityEngine;
 using DG.Tweening;
 
 public class BaseObject : MonoBehaviour {
+
+    public static readonly List<BaseObject> s_allObjects = new List<BaseObject>();
+
     public string m_displayName;
     [SerializeField] protected Transform m_model;
     public Transform Model { get { return m_model; } }
@@ -15,15 +18,20 @@ public class BaseObject : MonoBehaviour {
     private int m_busyCounter = 0;
     protected Renderer[] m_renderers;
     public BaseTile m_tile { get; protected set; }
-    
+
+    public VuLib.BasePrefabIdentifier m_prefabIdentifier { get; protected set; }
+
     protected virtual void Awake()
     {
+        s_allObjects.Add(this);
         m_busyCounter = 0;
         m_renderers = GetComponentsInChildren<Renderer>();
+        m_prefabIdentifier = GetComponent<VuLib.BasePrefabIdentifier>();
     }
 
     protected virtual void OnDestroy()
     {
+        s_allObjects.Remove(this);
         EventManager.OnObjectDestroyed.Dispatch(this);
         if(m_tile != null)
         {

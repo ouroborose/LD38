@@ -119,4 +119,28 @@ public class WorldSide : BaseObject, IClickable {
     {
         return m_topTile.Contains(obj) || m_bottomTile.Contains(obj);
     }
+
+    public WorldSideData GenerateWorldSideData()
+    {
+        WorldSideData data = new WorldSideData();
+        data.m_worldTileId = m_showingTile.m_prefabIdentifier._id;
+
+        BaseObject obj = m_showingTile.GetFirstObject();
+        if(obj != null)
+        {
+            data.m_objectId = obj.m_prefabIdentifier._id;
+            data.m_objectRotation = obj.transform.localEulerAngles.y;
+
+            BaseActor actor = obj as BaseActor;
+            if(actor != null && !(actor is BasePlayer))
+            {
+                data.m_actorData = actor.GenerateActorData();
+            }
+        }
+        else
+        {
+            data.m_objectId = VuLib.BasePrefabIdentifier.INVALID_PREFAB_ID;
+        }
+        return data;
+    }
 }

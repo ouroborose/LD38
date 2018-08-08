@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1943132903493510}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1250867815199750
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4439404820214574}
   m_Layer: 0
@@ -29,9 +29,9 @@ GameObject:
 --- !u!1 &1913808052111478
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4589864451023096}
   - component: {fileID: 33033278110458924}
@@ -46,12 +46,13 @@ GameObject:
 --- !u!1 &1943132903493510
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4761394896556078}
   - component: {fileID: 114783171243377860}
+  - component: {fileID: 114501129664569298}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -62,7 +63,7 @@ GameObject:
 --- !u!4 &4439404820214574
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250867815199750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -76,7 +77,7 @@ Transform:
 --- !u!4 &4589864451023096
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913808052111478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -89,7 +90,7 @@ Transform:
 --- !u!4 &4761394896556078
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943132903493510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -103,15 +104,17 @@ Transform:
 --- !u!23 &23607081411910098
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913808052111478}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 5716252a287e82445bd84681825c9bb9, type: 2}
   m_StaticBatchInfo:
@@ -124,6 +127,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -135,14 +139,26 @@ MeshRenderer:
 --- !u!33 &33033278110458924
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913808052111478}
   m_Mesh: {fileID: 4300000, guid: 195ea77be3c20024b98121fae5475b6f, type: 3}
+--- !u!114 &114501129664569298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943132903493510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18d28cd6e95c8e4b9351f7fb74e563f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: -1294078647
 --- !u!114 &114783171243377860
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943132903493510}
   m_Enabled: 1
@@ -152,7 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_displayName: Key
   m_model: {fileID: 0}
+  m_biomeAssetIndex: 0
   m_collectSounds:
   - {fileID: 8300000, guid: 37f305ec296c8f647b20fbc6ccc38a86, type: 3}
   - {fileID: 8300000, guid: d8d1d7478775f4544a75cde03e17b93f, type: 3}
   - {fileID: 8300000, guid: 389e74723369d3d47b0b2f0fab7cc890, type: 3}
+  m_dropType: 0

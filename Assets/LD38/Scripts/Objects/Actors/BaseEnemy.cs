@@ -7,7 +7,6 @@ public class BaseEnemy : BaseActor
 {
     public static readonly List<BaseEnemy> s_allEnemies = new List<BaseEnemy>();
 
-
     protected override void Awake()
     {
         base.Awake();

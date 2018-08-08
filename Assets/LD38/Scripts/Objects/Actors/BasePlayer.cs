@@ -51,16 +51,20 @@ public class BasePlayer : BaseActor
         DispatchChangedEvent();
     }
 
-    public void Equip(BaseEquipment equipment)
+    public void Equip(BaseEquipment equipment, bool displayPopText = true)
     {
-        if(equipment.m_atkBonus > 0)
+        if(displayPopText)
         {
-            ShowNeutralPopText(string.Format("+{0} atk", equipment.m_atkBonus));
+            if (equipment.m_atkBonus > 0)
+            {
+                ShowNeutralPopText(string.Format("+{0} atk", equipment.m_atkBonus));
+            }
+            if (equipment.m_hpBonus > 0)
+            {
+                ShowNeutralPopText(string.Format("+{0} max hp", equipment.m_hpBonus));
+            }
         }
-        if (equipment.m_hpBonus > 0)
-        {
-            ShowNeutralPopText(string.Format("+{0} max hp", equipment.m_hpBonus));
-        }
+        
         m_atkBonus += equipment.m_atkBonus;
         m_maxHpBonus += equipment.m_hpBonus;
         m_currentHP += equipment.m_hpBonus;
@@ -115,5 +119,39 @@ public class BasePlayer : BaseActor
     public override string CreateInfoText()
     {
         return base.CreateInfoText() + string.Format("\nKeys: {0}", m_numKeys);
+    }
+
+    public PlayerData GeneratePlayerData()
+    {
+        PlayerData data = new PlayerData();
+        data.m_currentHP = m_currentHP;
+        data.m_baseHP = m_baseHP;
+        data.m_maxHpBonus = m_maxHpBonus;
+
+        data.m_baseAttack = m_baseAttack;
+        data.m_atkBonus = m_atkBonus;
+
+        data.m_numKeys = m_numKeys;
+        for(int i = 0; i < m_equipmentSlots.Length; ++i)
+        {
+            data.m_equipmentIds.Add(m_equipmentSlots[i].m_prefabId);
+        }
+        return data;
+    }
+
+    public void LoadFromPlayerData(PlayerData data)
+    {
+        m_numKeys = data.m_numKeys;
+        for(int i = 0; i < data.m_equipmentIds.Count; ++i)
+        {
+            BaseEquipment equipment = VuLib.BasePrefabManager.Instance.Spawn<BaseEquipment>(data.m_equipmentIds[i]); // instantiate equipment so it can be equiped properly
+            if(equipment != null)
+            {
+                Equip(equipment, false);
+                Destroy(equipment.gameObject);
+            }
+        }
+
+        LoadFromData(data);
     }
 }

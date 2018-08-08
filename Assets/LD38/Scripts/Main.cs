@@ -31,6 +31,7 @@ public class Main : Singleton<Main>
     public float m_playerAtkScalingFactor = 1.05f;
 
     public int m_currentLevel { get; protected set; }
+    public int m_currentBiomeIndex { get; protected set; }
 
     [Header("Controls")]
     [SerializeField] private float m_mouseDragThreshold = 20;
@@ -43,6 +44,8 @@ public class Main : Singleton<Main>
 
     [SerializeField] private LocalSpaceTrailRenderer m_dragTrail;
     [SerializeField] private GameObject m_clickFeedbackPrefab;
+
+    private bool m_hasAutoSavedSinceLastInput = true;
 
     public enum GameState
     {
@@ -88,15 +91,17 @@ public class Main : Singleton<Main>
     public void StartGame()
     {
         Analytics.CustomEvent("GameStart");
+        ClearData();
         m_playTime = 0.0f;
         m_currentLevel = 0;
-        m_player.m_displayName = string.Format("World {0}", m_currentLevel);
-        EventManager.OnObjectChanged.Dispatch(m_player);
-        WorldSide topSide = m_world.GetTopSide();
 
+        WorldSide topSide = m_world.GetTopSide();
         m_player.SetTile(topSide.m_hiddenTile);
         m_player.gameObject.SetActive(true);
         m_player.Reset();
+        m_player.m_displayName = string.Format("World {0}", m_currentLevel);
+        EventManager.OnObjectChanged.Dispatch(m_player);
+
         topSide.m_hiddenTile.SetModel(m_startingBiomeData.m_tileModelPrefabs[UnityEngine.Random.Range(0, m_startingBiomeData.m_tileModelPrefabs.Length)]);
         topSide.Flip();
 
@@ -106,6 +111,20 @@ public class Main : Singleton<Main>
             m_currentGameState = GameState.GameStarted;
         });
 
+        EventManager.OnGameStart.Dispatch();
+    }
+
+    public void RevivePlayer()
+    {
+        Analytics.CustomEvent("GameContinued");
+        WorldSide topSide = m_world.GetTopSide();
+        m_player.SetTile(topSide.m_hiddenTile);
+        m_player.gameObject.SetActive(true);
+        m_player.Heal(m_player.CalculateMaxHP(), false);
+
+        topSide.Flip();
+
+        m_currentGameState = GameState.GameStarted;
         EventManager.OnGameStart.Dispatch();
     }
 
@@ -119,8 +138,10 @@ public class Main : Singleton<Main>
         m_currentLevel++;
         m_player.m_displayName = string.Format("World {0}", m_currentLevel);
         EventManager.OnObjectChanged.Dispatch(m_player);
+        
         BiomeGroupData currentGroup = GetCurrentBiomeGroup();
-        m_world.Populate(currentGroup.m_biomes[UnityEngine.Random.Range(0, currentGroup.m_biomes.Length)]);
+        m_currentBiomeIndex = UnityEngine.Random.Range(0, currentGroup.m_biomes.Length);
+        m_world.Populate(currentGroup.m_biomes[m_currentBiomeIndex]);
     }
 
     public int GetProgressionScaledValue(int value, float scaler, float levelOffset = 0, int level = -1)
@@ -169,7 +190,30 @@ public class Main : Singleton<Main>
         UpdatePlayerKeyboardControls();
         UpdatePlayerMouseControls();
 #endif
+
+        HandleAutoSave();
     }
+
+    protected void HandleAutoSave()
+    {
+        // wait for nothing to be busy
+        if(PlayerInputIsBlocked() || m_hasAutoSavedSinceLastInput)
+        {
+            return;
+        }
+
+        for(int i = 0; i < BaseObject.s_allObjects.Count; ++i)
+        {
+            if(BaseObject.s_allObjects[i].m_isBusy)
+            {
+                return;
+            }
+        }
+
+        m_hasAutoSavedSinceLastInput = true;
+        SaveData();
+    }
+
 
     protected void UpdateDebugControls()
     {
@@ -311,19 +355,7 @@ public class Main : Singleton<Main>
                 }
 
                 // Handle click
-                RaycastHit hit;
-                Ray ray = m_camera.m_cam.ScreenPointToRay(Input.mousePosition);
-                Vector3 feedbackPos = ray.GetPoint(m_camera.m_cam.transform.localPosition.magnitude);
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
-                    if (clickable != null)
-                    {
-                        clickable.OnClick();
-                    }
-                    feedbackPos = hit.point;
-                }
-                DoClickFeedback(feedbackPos, -m_camera.m_cam.transform.forward);
+                HandleClick(Input.mousePosition);
             }
         }
     }
@@ -373,24 +405,30 @@ public class Main : Singleton<Main>
                     }
 
                     // Handle click
-                    RaycastHit hit;
-                    Ray ray = m_camera.m_cam.ScreenPointToRay(touchPos);
-                    Vector3 feedbackPos = ray.GetPoint(m_camera.m_cam.transform.localPosition.magnitude);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                    {
-                        IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
-                        if (clickable != null)
-                        {
-                            clickable.OnClick();
-                        }
-                        feedbackPos = hit.point;
-                    }
-
-                    DoClickFeedback(feedbackPos, -m_camera.m_cam.transform.forward);
+                    HandleClick(touchPos);
                 }
 
             }
         }
+    }
+
+    protected void HandleClick(Vector3 clickPos)
+    {
+        RaycastHit hit;
+        Ray ray = m_camera.m_cam.ScreenPointToRay(clickPos);
+        Vector3 feedbackPos = ray.GetPoint(m_camera.m_cam.transform.localPosition.magnitude);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            IClickable clickable = hit.collider.GetComponentInParent<IClickable>();
+            if (clickable != null)
+            {
+                clickable.OnClick();
+                m_hasAutoSavedSinceLastInput = false;
+            }
+            feedbackPos = hit.point;
+        }
+
+        DoClickFeedback(feedbackPos, -m_camera.m_cam.transform.forward);
     }
 
     protected void LateUpdate()
@@ -430,5 +468,82 @@ public class Main : Singleton<Main>
     protected bool PlayerInputIsBlocked()
     {
         return m_player.m_isBusy || m_world.m_isBusy || m_player.m_currentHP <= 0 || m_currentGameState == GameState.Title || m_currentGameState == GameState.GameOver;
+    }
+
+    protected const string SAVE_KEY = "__SAVE__";
+
+    public SaveData GenerateSaveData()
+    {
+        SaveData data = new SaveData();
+        data.m_currentLevel = m_currentLevel;
+        data.m_currentBiomeIndex = m_currentBiomeIndex;
+        data.m_worldData = m_world.GenerateWorldData();
+        data.m_playerData = m_player.GeneratePlayerData();
+        return data;
+    }
+
+    [ContextMenu("SaveData")]
+    public void SaveData()
+    {
+        SaveData data = GenerateSaveData();
+        string saveDataString = data.GenerateSaveString();
+        //Debug.Log("GameSaved");
+        PlayerPrefs.SetString(SAVE_KEY, saveDataString);
+    }
+
+    [ContextMenu("ClearData")]
+    public void ClearData()
+    {
+        PlayerPrefs.DeleteKey(SAVE_KEY);
+    }
+
+    public bool HasSave()
+    {
+        return PlayerPrefs.HasKey(SAVE_KEY);
+    }
+
+    [ContextMenu("LoadData")]
+    public void LoadData()
+    {
+        if(HasSave())
+        {
+            Analytics.CustomEvent("GameLoaded");
+            string saveDataString = PlayerPrefs.GetString(SAVE_KEY, "");
+            if (!string.IsNullOrEmpty(saveDataString))
+            {
+                //Debug.Log(saveDataString);
+                SaveData data = JsonUtility.FromJson<SaveData>(saveDataString);
+                LoadGame(data);
+            }
+        }
+    }
+
+    public void LoadGame(SaveData data)
+    {
+        m_camera.ResetRotation();
+
+        // restore level
+        m_currentLevel = data.m_currentLevel;
+
+        // restore player
+        m_player.SetTile(m_world.Sides[data.m_worldData.m_topSideIndex].m_hiddenTile);
+        m_player.gameObject.SetActive(true);
+        m_player.Reset();
+        m_player.LoadFromPlayerData(data.m_playerData);
+        m_player.m_displayName = string.Format("World {0}", m_currentLevel);
+        EventManager.OnObjectChanged.Dispatch(m_player);
+
+        // restore world
+        BiomeData worldBiomeData = m_startingBiomeData;
+        if(m_currentLevel > 0)
+        {
+            BiomeGroupData biomeGroup = GetCurrentBiomeGroup();
+            worldBiomeData = biomeGroup.m_biomes[data.m_currentBiomeIndex];
+        }
+        m_world.LoadFromData(data.m_worldData, worldBiomeData);
+        
+        // start game
+        m_currentGameState = GameState.GameStarted;
+        EventManager.OnGameStart.Dispatch();
     }
 }

@@ -26,6 +26,8 @@ public class BaseTile : BaseObject {
         m_model.parent = transform;
         m_model.localPosition = Vector3.zero;
         m_model.localRotation = Quaternion.identity;
+
+        m_prefabIdentifier = m_model.GetComponent<VuLib.BasePrefabIdentifier>();
     }
 
     public BaseObject GetFirstObject()

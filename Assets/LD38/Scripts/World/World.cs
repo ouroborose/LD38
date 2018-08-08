@@ -125,9 +125,12 @@ public class World : MonoBehaviour {
         return null;
     }
 
-    public BaseObject SpawnObject(WorldSide side, GameObject prefab)
+    public BaseObject SpawnObject(WorldSide side, GameObject prefab, bool populateTileModel = true)
     {
-        PopulateTileModel(side);
+        if(populateTileModel)
+        {
+            PopulateTileModel(side);
+        }
 
         BaseObject objScript = null;
         if (prefab != null)
@@ -234,5 +237,88 @@ public class World : MonoBehaviour {
             }
         }
         return best;
+    }
+
+
+    public WorldData GenerateWorldData()
+    {
+        WorldData data = new WorldData();
+
+        WorldSide topSide = GetTopSide();
+        for (int i = 0; i < 6; ++i)
+        {
+            data.m_worldSideDatas[i] = m_sides[i].GenerateWorldSideData();
+            if(m_sides[i] == topSide)
+            {
+                data.m_topSideIndex = i;
+            }
+        }
+
+        Vector3 rotation = transform.eulerAngles;
+        data.m_rotationX = rotation.x;
+        data.m_rotationY = rotation.y;
+        data.m_rotationZ = rotation.z;
+        return data;
+    }
+
+    public void LoadFromData(WorldData data, BiomeData biomeData)
+    {
+        EventManager.OnLevelPopulationStarted.Dispatch();
+        m_busyCount++;
+        m_currentBiomeData = biomeData;
+        StartCoroutine(HandleWorldLoading(data));
+    }
+
+    protected IEnumerator HandleWorldLoading(WorldData data)
+    {
+        Quaternion toRotation = Quaternion.Euler(data.m_rotationX, data.m_rotationY, data.m_rotationZ);
+        if(Quaternion.Angle(transform.rotation, toRotation) > 45.0f)
+        {
+            transform.DORotateQuaternion(toRotation, ROTATE_TO_SIDE_TIME).SetEase(Ease.InOutBack);
+            yield return new WaitForSeconds(ROTATE_TO_SIDE_TIME);
+        }
+
+        for (int i = 0; i < 6; ++i)
+        {
+            WorldSide side = m_sides[i];
+            WorldSideData sideData = data.m_worldSideDatas[i];
+
+            GameObject prefab;
+            if (VuLib.BasePrefabManager.Instance.TryGetPrefab(sideData.m_worldTileId, out prefab))
+            {
+                // load tile model
+                side.m_hiddenTile.SetModel(prefab);
+            }
+            else
+            {
+                PopulateTileModel(side);
+            }
+
+            if (VuLib.BasePrefabManager.Instance.TryGetPrefab(sideData.m_objectId, out prefab))
+            {
+                BaseObject obj = SpawnObject(side, prefab, false);
+                obj.transform.localRotation = Quaternion.Euler(0.0f, sideData.m_objectRotation, 0.0f);
+
+                BaseActor actor = obj as BaseActor;
+                if(actor != null)
+                {
+                    actor.LoadFromData(sideData.m_actorData);
+                }
+
+                BasePortal portal = obj as BasePortal;
+                if(portal != null)
+                {
+                    m_portal = portal;
+                }
+            }
+            else
+            {
+                side.Flip();
+            }
+            yield return new WaitForSeconds(WORLD_POPULATION_STEP_TIME);
+        }
+
+        m_busyCount--;
+        EventManager.OnLevelPopulationFinished.Dispatch();
     }
 }
