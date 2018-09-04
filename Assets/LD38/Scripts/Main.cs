@@ -46,6 +46,7 @@ public class Main : Singleton<Main>
     [SerializeField] private GameObject m_clickFeedbackPrefab;
 
     private bool m_hasAutoSavedSinceLastInput = true;
+    private bool m_isInMenu = false;
 
     public enum GameState
     {
@@ -61,6 +62,9 @@ public class Main : Singleton<Main>
         base.Awake();
         Input.simulateMouseWithTouches = true;
         SceneManager.LoadScene(Strings.MAIN_UI_SCENE_NAME, LoadSceneMode.Additive);
+
+        EventManager.OnMenuOpen.Register(OnMenuOpen);
+        EventManager.OnMenuClose.Register(OnMenuClose);
     }
 
     protected void Start()
@@ -86,6 +90,16 @@ public class Main : Singleton<Main>
         }
 
         base.OnDestroy();
+    }
+
+    protected void OnMenuOpen()
+    {
+        m_isInMenu = true;
+    }
+
+    protected void OnMenuClose()
+    {
+        m_isInMenu = false;
     }
 
     public void StartGame()
@@ -174,6 +188,11 @@ public class Main : Singleton<Main>
 
     protected void Update()
     {
+        if(m_isInMenu)
+        {
+            return;
+        }
+
 #if UNITY_EDITOR
         UpdateDebugControls();
 #endif

@@ -63,7 +63,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Desciption
+  m_text: 'Description
 
     HP: 9999/9999
 
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114455985013079820}
-    characterCount: 34
+    characterCount: 35
     spriteCount: 0
     spaceCount: 4
     wordCount: 6
@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0ba268a3abbf84ba13ad4f030cc8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 0}
   m_displayText: {fileID: 114455985013079820}
+  m_target: {fileID: 0}
 --- !u!222 &222619609612321932
 CanvasRenderer:
   m_ObjectHideFlags: 1

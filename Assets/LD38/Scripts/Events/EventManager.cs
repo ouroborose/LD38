@@ -23,4 +23,7 @@ public static class EventManager
 
     public static readonly EventCallBack OnGameStart = new EventCallBack();
     public static readonly EventCallBack OnGameOver = new EventCallBack();
+
+    public static readonly EventCallBack OnMenuOpen = new EventCallBack();
+    public static readonly EventCallBack OnMenuClose = new EventCallBack();
 }

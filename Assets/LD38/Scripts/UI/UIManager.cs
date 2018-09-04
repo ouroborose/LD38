@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 public class UIManager : Singleton<UIManager> {
     [SerializeField] private BaseScreen m_titleScreen;
     [SerializeField] private BaseScreen m_gameOverScreen;
+    [SerializeField] private BaseScreen m_menuScreen;
+    [SerializeField] private BaseScreen m_fader;
 
     [SerializeField] private ObjectInfoDisplayUI m_playerInfoUI;
     [SerializeField] private ObjectInfoDisplayUI m_leftObjectInfoUI;
     [SerializeField] private ObjectInfoDisplayUI m_rightObjectInfoUI;
+    [SerializeField] private BaseHudUI[] m_hudUI;
 
     protected override void Awake()
     {
@@ -37,20 +40,23 @@ public class UIManager : Singleton<UIManager> {
 
         // setup player UI
         m_playerInfoUI.SetTarget(Main.Instance.Player);
-        m_playerInfoUI.Hide(true);
         m_leftObjectInfoUI.SetTarget(null);
-        m_leftObjectInfoUI.Hide(true);
         m_rightObjectInfoUI.SetTarget(null);
-        m_rightObjectInfoUI.Hide(true);
+        HideHUD(true);
 
         m_gameOverScreen.Hide(true);
+        m_menuScreen.Hide(true);
+        m_fader.Show(true);
     }
 
     protected void Start()
     {
         if(!Main.Instance.m_autoStart)
         {
-            m_titleScreen.Show();
+            m_fader.Hide(false, ()=>
+            {
+                m_titleScreen.Show();
+            });
         }
     }
 
@@ -73,13 +79,12 @@ public class UIManager : Singleton<UIManager> {
 
     protected void OnGameStart()
     {
-        m_playerInfoUI.Show();
+        ShowHUD();
     }
 
     protected void OnGameOver()
     {
-        m_playerInfoUI.Hide();
-        HideLeftRightInfo();
+        HideHUD();
 
         m_gameOverScreen.Show();
     }
@@ -113,6 +118,28 @@ public class UIManager : Singleton<UIManager> {
     private void OnItemSpawned(BaseObject obj)
     {
         ShowLeftRightInfo();
+    }
+
+    public void ShowMenu()
+    {
+        m_menuScreen.Show();
+        HideHUD();
+    }
+
+    public void ShowHUD(bool instant = false)
+    {
+        for(int i = 0; i < m_hudUI.Length; ++i)
+        {
+            m_hudUI[i].Show(instant);
+        }
+    }
+
+    public void HideHUD(bool instant = false)
+    {
+        for (int i = 0; i < m_hudUI.Length; ++i)
+        {
+            m_hudUI[i].Hide(instant);
+        }
     }
 
     protected void HideLeftRightInfo()

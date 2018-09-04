@@ -10,10 +10,10 @@ public class GameOverScreen : BaseScreen
 
     [SerializeField] private TextMeshProUGUI m_gameOverText;
 
-    public override void Show(bool instant = false)
+    public override void Show(bool instant = false, System.Action onComplete = null)
     {
         m_gameOverText.text = string.Format(GAME_OVER_TEXT, Main.Instance.m_currentLevel);
-        base.Show(instant);
+        base.Show(instant, onComplete);
     }
 
     public void OnRestartPressed()

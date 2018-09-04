@@ -1,16 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using TMPro;
-using System;
 
-public class ObjectInfoDisplayUI : MonoBehaviour {
-    public const float SHOW_TIME = 0.25f;
-
+public class ObjectInfoDisplayUI : BaseHudUI
+{
     [SerializeField] private BaseObject m_target;
-    [SerializeField] private TextMeshProUGUI m_displayText;
-    protected bool m_isVisible = true;
 
     protected void Awake()
     {
@@ -24,12 +18,20 @@ public class ObjectInfoDisplayUI : MonoBehaviour {
         EventManager.OnObjectDestroyed.Unregister(OnObjectDestroyed);
     }
 
+    public override void Show(bool instant = false)
+    {
+        if(m_target == null)
+        {
+            return;
+        }
+        base.Show(instant);
+    }
+
     public void SetTarget(BaseObject target)
     {
         m_target = target;
         UpdateDisplay();
     }
-
 
     protected void OnObjectDestroyed(BaseObject obj)
     {
@@ -57,37 +59,5 @@ public class ObjectInfoDisplayUI : MonoBehaviour {
         {
             m_displayText.text = string.Empty;
         }
-    }
-
-    public void Hide(bool instant = false)
-    {
-        if(!m_isVisible)
-        {
-            return;
-        }
-
-        m_isVisible = false;
-        if (instant)
-        {
-            m_displayText.alpha = 0.0f;
-            return;
-        }
-        DOTween.To(() => m_displayText.alpha, (x) => m_displayText.alpha = x, 0.0f, SHOW_TIME);
-    }
-
-    public void Show(bool instant = false)
-    {
-        if(m_isVisible)
-        {
-            return;
-        }
-
-        m_isVisible = true;
-        if (instant)
-        {
-            m_displayText.alpha = 1.0f;
-            return;
-        }
-        DOTween.To(() => m_displayText.alpha, (x) => m_displayText.alpha = x, 1.0f, SHOW_TIME);
     }
 }
