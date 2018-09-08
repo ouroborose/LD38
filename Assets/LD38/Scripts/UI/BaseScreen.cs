@@ -14,13 +14,13 @@ public class BaseScreen : MonoBehaviour {
     protected bool m_startPressed = false;
 
     protected Sequence m_lastSequence;
-    protected bool m_isHidden = false;
+    public bool m_isHidden { get; protected set; }
 
     public virtual void Show(bool instant = false, System.Action onComplete = null)
     {
         m_isHidden = false;
         gameObject.SetActive(true);
-        Main.Instance.CameraController.StartRotation();
+        //Main.Instance.CameraController.StartRotation();
 
         if (m_lastSequence != null)
         {

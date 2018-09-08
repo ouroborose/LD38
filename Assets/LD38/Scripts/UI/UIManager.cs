@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager> {
     [SerializeField] private BaseScreen m_titleScreen;
+    [SerializeField] private BaseScreen m_notificationScreen;
     [SerializeField] private BaseScreen m_gameOverScreen;
     [SerializeField] private BaseScreen m_menuScreen;
     [SerializeField] private BaseScreen m_fader;
@@ -46,6 +47,7 @@ public class UIManager : Singleton<UIManager> {
 
         m_gameOverScreen.Hide(true);
         m_menuScreen.Hide(true);
+        m_notificationScreen.Hide(true);
         m_fader.Show(true);
     }
 

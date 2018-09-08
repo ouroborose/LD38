@@ -9,6 +9,9 @@ public class TitleScreen : BaseScreen {
     public TextMeshProUGUI m_continueWorldText;
 
     public GameObject m_newGameButton;
+
+    public NotificationScreen m_notificationScreen;
+
     protected SaveData m_saveData;
 
     protected void Start()
@@ -29,22 +32,39 @@ public class TitleScreen : BaseScreen {
         }
     }
 
-    public void OnStartGamePressed()
-    {
-        AudioManager.Instance.PlayConfirm();
-        Hide(false, StartGame);
-    }
-
     protected void StartGame()
     {
         Main.Instance.CameraController.ResetRotation();
         Main.Instance.StartGame();
     }
 
-    public void OnLoadGamePressed()
+    public void OnStartGamePressed()
     {
         AudioManager.Instance.PlayConfirm();
+        Hide(false, StartGame);
+    }
+
+    public void OnLoadGamePressed()
+    {
+        if (!m_notificationScreen.m_isHidden)
+        {
+            return;
+        }
+
+        AudioManager.Instance.PlayConfirm();
         Hide(false, LoadGame);
+    }
+
+    public void OnNewGamePressed()
+    {
+        if(!m_notificationScreen.m_isHidden)
+        {
+            return;
+        }
+
+        Hide();
+        m_notificationScreen.m_autoRotateCamera = true;
+        m_notificationScreen.ShowNotification("Starting a new game will delete your current save.\n\nStart new game?", "Yes", StartGame, "No", ()=> { Show(); });
     }
     
     protected void LoadGame()
